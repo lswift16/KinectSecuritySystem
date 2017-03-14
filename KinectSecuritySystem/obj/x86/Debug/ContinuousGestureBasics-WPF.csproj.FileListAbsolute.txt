@@ -1,0 +1,1 @@
+C:\Users\Luke\Source\Repos\KinectSecuritySystem\ContinuousGestureBasics-WPF-master\bin\x86\Debug\ContinuousGestureBasics-WPF.exe.config
