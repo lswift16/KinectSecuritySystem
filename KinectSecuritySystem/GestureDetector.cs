@@ -17,38 +17,60 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
     /// </summary>
     public sealed class GestureDetector : IDisposable
     {
+
+
         /// <summary> Path to the gesture database that was trained with VGB </summary>
-        private readonly string gestureDatabase = @"Database\Steering.gbd";
+        private readonly string gestureDatabase = @"Database\Security.gbd";
 
-        /// <summary> Name of the discrete gesture in the database for detecting when the user is holding the maximum left turn position </summary>
-        private readonly string maxTurnLeftGestureName = "MaxTurn_Left";
+        //Gesture definitions:
+        /// <summary> The first gesture to be detected - can be changed by user</summary>
+        private string first_Gesture = "Stop_Left"; //null;
+        private string second_Gesture = "Stop_Right"; //null;
+        private string third_Gesture = "ThumbUp_Left"; //null;
+        private string fourth_Gesture = "HandsUp"; //null;
 
-        /// <summary> Name of the discrete gesture in the database for detecting when the user is holding the maximum right turn position </summary>
-        private readonly string maxTurnRightGestureName = "MaxTurn_Right";
+        ///// <summary> Name of the discrete gesture in the database for detecting when the user is holding the maximum left turn position </summary>
+        //private readonly string maxTurnLeftGestureName = "MaxTurn_Left";
 
-        /// <summary> Name of the discrete gesture in the database for detecting when the user is holding the wheel straight </summary>
-        private readonly string steerStraightGestureName = "SteerStraight";
+        ///// <summary> Name of the discrete gesture in the database for detecting when the user is holding the maximum right turn position </summary>
+        //private readonly string maxTurnRightGestureName = "MaxTurn_Right";
 
-        /// <summary> Name of the discrete gesture in the database for detecting when the user is actively turning the wheel to the left </summary>
-        private readonly string steerLeftGestureName = "Steer_Left";
+        ///// <summary> Name of the discrete gesture in the database for detecting when the user is holding the wheel straight </summary>
+        //private readonly string steerStraightGestureName = "SteerStraight";
 
-        /// <summary> Name of the discrete gesture in the database for detecting when the user is actively turning the wheel to the right </summary>
-        private readonly string steerRightGestureName = "Steer_Right";
+        ///// <summary> Name of the discrete gesture in the database for detecting when the user is actively turning the wheel to the left </summary>
+        //private readonly string steerLeftGestureName = "Steer_Left";
 
-        /// <summary> Name of the discrete gesture in the database for detecting when the user is returning the wheel to the straight position after turning left </summary>
-        private readonly string returnRightGestureName = "Return_Left";
+        ///// <summary> Name of the discrete gesture in the database for detecting when the user is actively turning the wheel to the right </summary>
+        //private readonly string steerRightGestureName = "Steer_Right";
 
-        /// <summary> Name of the discrete gesture in the database for detecting when the user is returning the wheel to the straight position after turning right </summary>
-        private readonly string returnLeftGestureName = "Return_Right";
+        ///// <summary> Name of the discrete gesture in the database for detecting when the user is returning the wheel to the straight position after turning left </summary>
+        //private readonly string returnRightGestureName = "Return_Left";
 
-        /// <summary> Name of the continuous gesture in the database which tracks the steering progress </summary>
-        private readonly string steerProgressGestureName = "SteerProgress";
+        ///// <summary> Name of the discrete gesture in the database for detecting when the user is returning the wheel to the straight position after turning right </summary>
+        //private readonly string returnLeftGestureName = "Return_Right";
+
+        ///// <summary> Name of the continuous gesture in the database which tracks the steering progress </summary>
+        //private readonly string steerProgressGestureName = "SteerProgress";
 
         /// <summary> Gesture frame source which should be tied to a body tracking ID </summary>
         private VisualGestureBuilderFrameSource vgbFrameSource = null;
 
         /// <summary> Gesture frame reader which will handle gesture events coming from the sensor </summary>
         private VisualGestureBuilderFrameReader vgbFrameReader = null;
+
+        /// <summary>
+        /// Sets the three gestures used to lock/unlock the system to the parameters
+        /// </summary>
+        /// <param name="gesture1"></param>
+        /// <param name="gesture2"></param>
+        /// <param name="gesture3"></param>
+        public void SetGestures(string gesture1, string gesture2, string gesture3)
+        {
+            this.first_Gesture = gesture1;
+            this.second_Gesture = gesture2;
+            this.third_Gesture = gesture3;
+        }
 
         /// <summary>
         /// Initializes a new instance of the GestureDetector class along with the gesture frame source and reader
@@ -87,13 +109,13 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
             }
 
             // disable the set of gestures which determine the 'keep straight' behavior, we will use hand state instead
-            foreach (var gesture in this.vgbFrameSource.Gestures)
-            {
-                if (gesture.Name.Equals(this.steerStraightGestureName) || gesture.Name.Equals(this.returnLeftGestureName) || gesture.Name.Equals(this.returnRightGestureName))
-                {
-                    this.vgbFrameSource.SetIsEnabled(gesture, false);
-                }
-            }
+            //foreach (var gesture in this.vgbFrameSource.Gestures)
+            //{
+            //    if (gesture.Name.Equals(this.steerStraightGestureName) || gesture.Name.Equals(this.returnLeftGestureName) || gesture.Name.Equals(this.returnRightGestureName))
+            //    {
+            //        this.vgbFrameSource.SetIsEnabled(gesture, false);
+            //    }
+            //}
         }
 
         /// <summary> 
@@ -161,13 +183,11 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
 
                     if (discreteResults != null)
                     {
-                        bool maxTurnLeft = false;
-                        bool maxTurnRight = false;
-                        bool steerLeft = this.GestureResultView.TurnLeft;
-                        bool steerRight = this.GestureResultView.TurnRight;
-                        bool keepStraight = this.GestureResultView.KeepStraight;
-                        float steerProgress = this.GestureResultView.SteerProgress;
- 
+                        bool firstGestureDetected = this.GestureResultView.FirstGesture;
+                        bool secondGestureDetected = this.GestureResultView.SecondGesture;
+                        bool thirdGestureDetected = this.GestureResultView.ThirdGesture;
+                        bool fourthGestureDetected = this.GestureResultView.FirstGesture;
+
                         foreach (var gesture in this.vgbFrameSource.Gestures)
                         {
                             if (gesture.GestureType == GestureType.Discrete)
@@ -177,79 +197,46 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
 
                                 if (result != null)
                                 {
-                                    if (gesture.Name.Equals(this.steerLeftGestureName))
+                                    if (gesture.Name.Equals(this.fourth_Gesture) && (result.Confidence == 1)) 
                                     {
-                                        steerLeft = result.Detected;
-                                    }
-                                    else if (gesture.Name.Equals(this.steerRightGestureName))
-                                    {
-                                        steerRight = result.Detected;
-                                    }
-                                    else if (gesture.Name.Equals(this.maxTurnLeftGestureName))
-                                    {
-                                        maxTurnLeft = result.Detected;
-                                    }
-                                    else if (gesture.Name.Equals(this.maxTurnRightGestureName))
-                                    {
-                                        maxTurnRight = result.Detected;
-                                    }
-                                }
-                            }
 
-                            if (continuousResults != null)
-                            {
-                                if (gesture.Name.Equals(this.steerProgressGestureName) && gesture.GestureType == GestureType.Continuous)
-                                {
-                                    ContinuousGestureResult result = null;
-                                    continuousResults.TryGetValue(gesture, out result);
-
-                                    if (result != null)
+                                        Console.WriteLine("Fourth detected");
+                                    }
+                                    if (gesture.Name.Equals(this.first_Gesture))
                                     {
-                                        steerProgress = result.Progress;
+                                        firstGestureDetected = result.Detected;
+                                        Console.WriteLine("First detected");
+                                    }
+                                    else if (gesture.Name.Equals(this.second_Gesture))
+                                    {
+                                        secondGestureDetected = result.Detected;
+                                        Console.WriteLine("Second detected");
+                                    }
+                                    else if (gesture.Name.Equals(this.third_Gesture))
+                                    {
+                                        thirdGestureDetected = result.Detected;
+                                        Console.WriteLine("Third detected");
                                     }
                                 }
                             }
-                        }
 
-                        // use handstate to determine if the user is holding the steering wheel
-                        // note: we could use a combination of the 'SteerStraight' 'Return_Left' and 'Return_Right' gestures here,
-                        // but in this case, handstate is easier to detect and does essentially the same thing
-                        keepStraight = this.ClosedHandState;
+                            //if (continuousResults != null)
+                            //{
+                            //    if (gesture.Name.Equals(this.steerProgressGestureName) && gesture.GestureType == GestureType.Continuous)
+                            //    {
+                            //        ContinuousGestureResult result = null;
+                            //        continuousResults.TryGetValue(gesture, out result);
 
-                        // if either the 'Steer_Left' or 'MaxTurn_Left' gesture is detected, then we want to turn the ship left
-                        if (steerLeft || maxTurnLeft)
-                        {
-                            steerLeft = true;
-                            keepStraight = false;
-                        }
-
-                        // if either the 'Steer_Right' or 'MaxTurn_Right' gesture is detected, then we want to turn the ship right
-                        if (steerRight || maxTurnRight)
-                        {
-                            steerRight = true;
-                            keepStraight = false;
-                        }
-
-                        // clamp the progress value between 0 and 1
-                        if (steerProgress < 0)
-                        {
-                            steerProgress = 0;
-                        }
-                        else if (steerProgress > 1)
-                        {
-                            steerProgress = 1;
-                        }
-
-                        // Continuous gestures will always report a value while the body is tracked. 
-                        // We need to provide context to this value by mapping it to one or more discrete gestures.
-                        // For this sample, we will ignore the progress value whenever the user is not performing any of the discrete gestures.
-                        if (!steerLeft && !steerRight && !keepStraight)
-                        {
-                            steerProgress = -1;
+                            //        if (result != null)
+                            //        {
+                            //            steerProgress = result.Progress;
+                            //        }
+                            //    }
+                            //}
                         }
 
                         // update the UI with the latest gesture detection results
-                        this.GestureResultView.UpdateGestureResult(true, steerLeft, steerRight, keepStraight, steerProgress);
+                        this.GestureResultView.UpdateGestureResult(true, firstGestureDetected, secondGestureDetected, thirdGestureDetected, 0.0f);
                     }
                 }
             }

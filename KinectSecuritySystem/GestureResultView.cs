@@ -18,18 +18,15 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
     /// </summary>
     public sealed class GestureResultView : BindableBase
     {
-        /// <summary> True, if the user is attempting to turn left (either 'Steer_Left' or 'MaxTurn_Left' is detected) </summary>
-        private bool turnLeft = false;
+        /// <summary> True, if the user is doing first gesture </summary>
+        private bool firstGesture = false;
 
-        /// <summary> True, if the user is attempting to turn right (either 'Steer_Right' or 'MaxTurn_Right' is detected) </summary>
-        private bool turnRight = false;
+        /// <summary> True, if the user is second gesture </summary>
+        private bool secondGesture = false;
 
-        /// <summary> True, if the user is holding the wheel, but not turning it (Closed hands detected) </summary>
-        private bool keepStraight = false;
+        /// <summary> True, if the user is doing third gesture  </summary>
+        private bool thirdGesture = false;
 
-        /// <summary> Current progress value reported by the continuous 'SteerProgress' gesture </summary>
-        private float steerProgress = 0.0f;
-        
         /// <summary> True, if the body is currently being tracked </summary>
         private bool isTracked = false;
 
@@ -40,12 +37,13 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
         /// Initializes a new instance of the GestureResultView class and sets initial property values
         /// </summary>
         /// <param name="isTracked">True, if the body is currently tracked</param>
-        /// <param name="left">True, if the 'Steer_Left' gesture is currently detected</param>
-        /// <param name="right">True, if the 'Steer_Right' gesture is currently detected</param>
-        /// <param name="straight">True, if the 'SteerStraight' gesture is currently detected</param>
+        /// <param name="firstGesture">True, if the first gesture is currently detected</param>
+        /// <param name="secondGesture">True, if the second gesture is currently detected</param>
+        /// <param name="thirdGesture">True, if the third gesture is currently detected</param>
+        /// 
         /// <param name="progress">Progress value of the 'SteerProgress' gesture</param>
         /// <param name="space">SpaceView object in UI which should be updated with latest gesture result data</param>
-        public GestureResultView(bool isTracked, bool left, bool right, bool straight, float progress, SpaceView space)
+        public GestureResultView(bool isTracked, bool firstGesture, bool secondGesture, bool thirdGesture, float progress, SpaceView space)
         {
             if (space == null)
             {
@@ -53,10 +51,10 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
             }
 
             this.IsTracked = isTracked;
-            this.TurnLeft = left;
-            this.TurnRight = right;
-            this.KeepStraight = straight;
-            this.SteerProgress = progress;
+            this.FirstGesture = firstGesture;
+            this.SecondGesture = secondGesture;
+            this.ThirdGesture = thirdGesture;
+            //this.SteerProgress = progress;
             this.spaceView = space;
         }
 
@@ -77,66 +75,50 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
         }
 
         /// <summary> 
-        /// Gets a value indicating whether the user is attempting to turn the ship left 
+        /// Gets a value indicating whether the user is doing the first gesture in the unlock sequence
         /// </summary>
-        public bool TurnLeft
+        public bool FirstGesture
         {
             get
             {
-                return this.turnLeft;
+                return this.firstGesture;
             }
 
             private set
             {
-                this.SetProperty(ref this.turnLeft, value);
+                this.SetProperty(ref this.firstGesture, value);
             }
         }
 
         /// <summary> 
-        /// Gets a value indicating whether the user is attempting to turn the ship right 
+        /// Gets a value indicating whether the user is doing the second gesture in the unlock sequence
         /// </summary>
-        public bool TurnRight
+        public bool SecondGesture
         {
             get
             {
-                return this.turnRight;
+                return this.secondGesture;
             }
 
             private set
             {
-                this.SetProperty(ref this.turnRight, value);
+                this.SetProperty(ref this.secondGesture, value);
             }
         }
 
         /// <summary> 
-        /// Gets a value indicating whether the user is trying to keep the ship straight
+        /// Gets a value indicating whether the user is doing the second gesture in the unlock sequence
         /// </summary>
-        public bool KeepStraight
+        public bool ThirdGesture
         {
             get
             {
-                return this.keepStraight;
+                return this.thirdGesture;
             }
 
             private set
             {
-                this.SetProperty(ref this.keepStraight, value);
-            }
-        }
-
-        /// <summary> 
-        /// Gets a value indicating the progress associated with the 'SteerProgress' gesture for the tracked body 
-        /// </summary>
-        public float SteerProgress
-        {
-            get
-            {
-                return this.steerProgress;
-            }
-
-            private set
-            {
-                this.SetProperty(ref this.steerProgress, value);
+                this.SetProperty(ref this.thirdGesture, value);
             }
         }
 
@@ -148,27 +130,27 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
         /// <param name="right">True, if detection results indicate that the user is attempting to turn the ship right</param>
         /// <param name="straight">True, if detection results indicate that the user is attempting to keep the ship straight</param>
         /// <param name="progress">The current progress value of the 'SteerProgress' continuous gesture</param>
-        public void UpdateGestureResult(bool isBodyTrackingIdValid, bool left, bool right, bool straight, float progress)
+        public void UpdateGestureResult(bool isBodyTrackingIdValid, bool firstGesture, bool secondGesture, bool  thirdGesture, float progress)
         {
             this.IsTracked = isBodyTrackingIdValid;
 
             if (!this.isTracked)
             {
-                this.TurnLeft = false;
-                this.TurnRight = false;
-                this.KeepStraight = false;
-                this.SteerProgress = -1.0f;
+                this.FirstGesture = false;
+                this.SecondGesture = false;
+                this.ThirdGesture = false;
+                //this.SteerProgress = -1.0f;
             }
             else
             {
-                this.TurnLeft = left;
-                this.TurnRight = right;
-                this.KeepStraight = straight;
-                this.SteerProgress = progress;
+                this.FirstGesture = firstGesture;
+                this.SecondGesture = secondGesture;
+                this.ThirdGesture = thirdGesture;
+                //this.SteerProgress = progress;
             }
 
-            // move the ship in space, using the latest gesture detection results
-            this.spaceView.UpdateShipPosition(this.KeepStraight, this.SteerProgress);
+            // move the ship in space, using the latest gesture detection results TODO
+                 //this.spaceView.UpdateShipPosition(this.KeepStraight, this.SteerProgress);
         }
     }
 }

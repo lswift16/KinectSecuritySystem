@@ -18,3 +18,5 @@ C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Deb
 C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Debug\KinectSecuritySystem.csproj.GenerateResource.Cache
 C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Debug\ContinuousGestureBasics-WPF.exe
 C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Debug\ContinuousGestureBasics-WPF.pdb
+C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\bin\x86\Debug\Database\Stop.gbd
+C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\bin\x86\Debug\Database\Security.gbd
