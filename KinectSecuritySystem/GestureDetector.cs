@@ -20,38 +20,26 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
 
 
         /// <summary> Path to the gesture database that was trained with VGB </summary>
-        private readonly string gestureDatabase = @"Database\Security.gbd";
+        private readonly string gestureDatabase = @"Database\Stop.gbd";
 
         //Gesture definitions:
         /// <summary> The first gesture to be detected - can be changed by user</summary>
-        private string first_Gesture = "Stop_Left"; //null;
-        private string second_Gesture = "Stop_Right"; //null;
-        private string third_Gesture = "ThumbUp_Left"; //null;
+        private string first_Gesture = null;
+        private string second_Gesture = null;
+        private string third_Gesture = null;
         private string fourth_Gesture = "HandsUp"; //null;
 
-        ///// <summary> Name of the discrete gesture in the database for detecting when the user is holding the maximum left turn position </summary>
-        //private readonly string maxTurnLeftGestureName = "MaxTurn_Left";
+        /// <summary>
+        /// Toggle each gesture after it's recognized by kinect 
+        /// </summary>
+        private bool bFirstGesture = false;
+        private bool bSecondGesture = false;
+        private bool bThirdGesture = false;
 
-        ///// <summary> Name of the discrete gesture in the database for detecting when the user is holding the maximum right turn position </summary>
-        //private readonly string maxTurnRightGestureName = "MaxTurn_Right";
-
-        ///// <summary> Name of the discrete gesture in the database for detecting when the user is holding the wheel straight </summary>
-        //private readonly string steerStraightGestureName = "SteerStraight";
-
-        ///// <summary> Name of the discrete gesture in the database for detecting when the user is actively turning the wheel to the left </summary>
-        //private readonly string steerLeftGestureName = "Steer_Left";
-
-        ///// <summary> Name of the discrete gesture in the database for detecting when the user is actively turning the wheel to the right </summary>
-        //private readonly string steerRightGestureName = "Steer_Right";
-
-        ///// <summary> Name of the discrete gesture in the database for detecting when the user is returning the wheel to the straight position after turning left </summary>
-        //private readonly string returnRightGestureName = "Return_Left";
-
-        ///// <summary> Name of the discrete gesture in the database for detecting when the user is returning the wheel to the straight position after turning right </summary>
-        //private readonly string returnLeftGestureName = "Return_Right";
-
-        ///// <summary> Name of the continuous gesture in the database which tracks the steering progress </summary>
-        //private readonly string steerProgressGestureName = "SteerProgress";
+        /// <summary> 
+        /// The current state of the door (Unlocked or locked)
+        /// </summary>
+        private bool bDoorLockState = false; 
 
         /// <summary> Gesture frame source which should be tied to a body tracking ID </summary>
         private VisualGestureBuilderFrameSource vgbFrameSource = null;
@@ -83,15 +71,15 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
             {
                 throw new ArgumentNullException("kinectSensor");
             }
-
+          
             if (gestureResultView == null)
             {
                 throw new ArgumentNullException("gestureResultView");
             }
-            
+
             this.GestureResultView = gestureResultView;
             this.ClosedHandState = false;
-            
+
             // create the vgb source. The associated body tracking ID will be set when a valid body frame arrives from the sensor.
             this.vgbFrameSource = new VisualGestureBuilderFrameSource(kinectSensor, 0);
 
@@ -108,14 +96,9 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
                 this.vgbFrameSource.AddGestures(database.AvailableGestures);
             }
 
-            // disable the set of gestures which determine the 'keep straight' behavior, we will use hand state instead
-            //foreach (var gesture in this.vgbFrameSource.Gestures)
-            //{
-            //    if (gesture.Name.Equals(this.steerStraightGestureName) || gesture.Name.Equals(this.returnLeftGestureName) || gesture.Name.Equals(this.returnRightGestureName))
-            //    {
-            //        this.vgbFrameSource.SetIsEnabled(gesture, false);
-            //    }
-            //}
+
+            //Initialize the gestures to a set sequence
+            SetGestures("Stop_Left", "Stop_Right", "ThumbUp_Left");
         }
 
         /// <summary> 
@@ -197,42 +180,54 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
 
                                 if (result != null)
                                 {
-                                    if (gesture.Name.Equals(this.fourth_Gesture) && (result.Confidence == 1)) 
-                                    {
-
-                                        Console.WriteLine("Fourth detected");
-                                    }
-                                    if (gesture.Name.Equals(this.first_Gesture))
+                                    if (gesture.Name.Equals(this.first_Gesture) && (result.Confidence == 1))
                                     {
                                         firstGestureDetected = result.Detected;
-                                        Console.WriteLine("First detected");
+                                        bFirstGesture = true;
+                                        Console.WriteLine("First gesture toggled on");
                                     }
-                                    else if (gesture.Name.Equals(this.second_Gesture))
+                                    else if (gesture.Name.Equals(this.second_Gesture) && (result.Confidence == 1))
                                     {
                                         secondGestureDetected = result.Detected;
-                                        Console.WriteLine("Second detected");
+                                        if (bFirstGesture)
+                                        {
+                                            bSecondGesture = true;
+                                            Console.WriteLine("Second gesture toggled on");
+                                        }
+                                        else
+                                        {
+                                            bFirstGesture = false;
+                                            Console.WriteLine("first gesture toggled off");
+                                        }
                                     }
-                                    else if (gesture.Name.Equals(this.third_Gesture))
+                                    else if (gesture.Name.Equals(this.third_Gesture) && (result.Confidence == 1))
                                     {
                                         thirdGestureDetected = result.Detected;
-                                        Console.WriteLine("Third detected");
+
+                                        if (bFirstGesture && bSecondGesture)
+                                        {
+                                            bThirdGesture = true;
+                                            Console.WriteLine("Third gesture toggled on");
+                                        }
+                                        else
+                                        {
+                                            bFirstGesture = false;
+                                            bSecondGesture = false;
+                                            Console.WriteLine("First and second gesture toggled off");
+                                        }
                                     }
                                 }
                             }
+                        }
 
-                            //if (continuousResults != null)
-                            //{
-                            //    if (gesture.Name.Equals(this.steerProgressGestureName) && gesture.GestureType == GestureType.Continuous)
-                            //    {
-                            //        ContinuousGestureResult result = null;
-                            //        continuousResults.TryGetValue(gesture, out result);
-
-                            //        if (result != null)
-                            //        {
-                            //            steerProgress = result.Progress;
-                            //        }
-                            //    }
-                            //}
+                        // Unlock the door if all three gestures have been toggled on
+                        if (bFirstGesture && bSecondGesture && bThirdGesture)
+                        {
+                            bDoorLockState = true; //Unlocked 
+                        }
+                        if (bDoorLockState)
+                        {
+                            Console.WriteLine("Door Unlocked");
                         }
 
                         // update the UI with the latest gesture detection results
