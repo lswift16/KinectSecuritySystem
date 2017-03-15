@@ -1,4 +1,6 @@
-The KinectGesture is a biometric system that allows users to unlock their doors with simple physical movements. By selecting from a set of pre-generated gestures the user can set a "lock" consisting of any three. To unlock a user simply has to preform these gestures, in their decided order, in front of the Kinect. The system connects to an arduino via xBees which control a servo representing a physical door lock.
+# Kinect Security System
+
+The Kinect Security System is a biometric system that allows users to unlock their doors with simple physical movements. By selecting from a set of pre-generated gestures the user can set a "lock" consisting of any three. To unlock the door a user simply has to preform these gestures, in their decided order, in view of the Kinect. The system connects to an arduino via xBees which control a servo representing a physical door lock.
 
 ### Equipment Required
 
