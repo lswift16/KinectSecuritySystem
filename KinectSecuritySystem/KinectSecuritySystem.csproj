@@ -123,6 +123,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="Images\unlocked.png" />
+    <Resource Include="Images\locked.png" />
     <Resource Include="Images\explosion.png" />
     <Resource Include="Images\asteroid.png" />
     <Resource Include="Images\spaceship.png" />

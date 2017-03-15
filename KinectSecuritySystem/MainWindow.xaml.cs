@@ -81,18 +81,18 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
             this.kinectBodyView = new KinectBodyView(this.kinectSensor);
             
             // initialize the SpaceView object
-            this.spaceView = new SpaceView(this.spaceGrid, this.spaceImage);
+            //this.spaceView = new SpaceView(this.spaceGrid, this.spaceImage);
 
             // initialize the GestureDetector object
-            this.gestureResultView = new GestureResultView(false, false, false, false, -1.0f, this.spaceView);
+            this.gestureResultView = new GestureResultView(false, false, false, false, -1.0f, null, false);
             this.gestureDetector = new GestureDetector(this.kinectSensor, this.gestureResultView);
 
             // set data context objects for display in UI
             this.DataContext = this;
             this.kinectBodyViewbox.DataContext = this.kinectBodyView;
             this.gestureResultGrid.DataContext = this.gestureResultView;
-            this.spaceGrid.DataContext = this.spaceView;
-            this.collisionResultGrid.DataContext = this.spaceView;
+            //this.spaceGrid.DataContext = this.spaceView;
+            //this.collisionResultGrid.DataContext = this.spaceView;
         }
 
         /// <summary>
@@ -155,28 +155,28 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
             this.UpdateKinectStatusText();
             this.UpdateKinectFrameData();
 
-            if (!this.spaceView.ExplosionInProgress)
-            {
-                if (this.bodies != null)
-                {
-                    // only move asteroids when someone is available to drive the ship
-                    if (this.bodies[this.activeBodyIndex].IsTracked)
-                    {
-                        this.spaceView.UpdateTimeSinceCollision(false);
-                        this.spaceView.UpdateAsteroids();
-                        this.spaceView.CheckForCollision();
-                    }
-                    else
-                    {
-                        // pause the collision timer when no bodies are tracked
-                        this.spaceView.UpdateTimeSinceCollision(true);
-                    }
-                }
-            }
-            else
-            {
-                this.spaceView.UpdateExplosion();
-            }
+            //if (!this.spaceView.ExplosionInProgress)
+            //{
+            //    if (this.bodies != null)
+            //    {
+            //        // only move asteroids when someone is available to drive the ship
+            //        if (this.bodies[this.activeBodyIndex].IsTracked)
+            //        {
+            //            this.spaceView.UpdateTimeSinceCollision(false);
+            //            this.spaceView.UpdateAsteroids();
+            //            this.spaceView.CheckForCollision();
+            //        }
+            //        else
+            //        {
+            //            // pause the collision timer when no bodies are tracked
+            //            this.spaceView.UpdateTimeSinceCollision(true);
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    this.spaceView.UpdateExplosion();
+            //}
         }
 
         /// <summary>
@@ -312,7 +312,7 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
                     // the active body is not tracked, pause the detector and update the UI
                     this.gestureDetector.IsPaused = true;
                     this.gestureDetector.ClosedHandState = false;
-                    this.gestureResultView.UpdateGestureResult(false, false, false, false, -1.0f);
+                    this.gestureResultView.UpdateGestureResult(false, false, false, false, -1.0f, false);
                 }
                 else
                 {

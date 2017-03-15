@@ -18,6 +18,11 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
     /// </summary>
     public sealed class GestureResultView : BindableBase
     {
+        ///<summary>
+        /// The current state of the door (locked/Unlocked)
+        /// </summary>
+        private bool doorUnlockState = false;
+
         /// <summary> True, if the user is doing first gesture </summary>
         private bool firstGesture = false;
 
@@ -43,19 +48,16 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
         /// 
         /// <param name="progress">Progress value of the 'SteerProgress' gesture</param>
         /// <param name="space">SpaceView object in UI which should be updated with latest gesture result data</param>
-        public GestureResultView(bool isTracked, bool firstGesture, bool secondGesture, bool thirdGesture, float progress, SpaceView space)
+        public GestureResultView(bool isTracked, bool firstGesture, bool secondGesture, bool thirdGesture, float progress, SpaceView space, bool doorUnlockState)
         {
-            if (space == null)
-            {
-                throw new ArgumentNullException("spaceView");
-            }
-
+            
             this.IsTracked = isTracked;
             this.FirstGesture = firstGesture;
             this.SecondGesture = secondGesture;
             this.ThirdGesture = thirdGesture;
             //this.SteerProgress = progress;
             this.spaceView = space;
+            this.DoorUnlockState = doorUnlockState;
         }
 
         /// <summary> 
@@ -71,6 +73,19 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
             private set
             {
                 this.SetProperty(ref this.isTracked, value);
+            }
+        }
+
+        public bool DoorUnlockState
+        {
+            get
+            {
+                return this.DoorUnlockState;
+            }
+
+            private set
+            {
+                this.SetProperty(ref this.doorUnlockState, value);
             }
         }
 
@@ -130,7 +145,7 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
         /// <param name="right">True, if detection results indicate that the user is attempting to turn the ship right</param>
         /// <param name="straight">True, if detection results indicate that the user is attempting to keep the ship straight</param>
         /// <param name="progress">The current progress value of the 'SteerProgress' continuous gesture</param>
-        public void UpdateGestureResult(bool isBodyTrackingIdValid, bool firstGesture, bool secondGesture, bool  thirdGesture, float progress)
+        public void UpdateGestureResult(bool isBodyTrackingIdValid, bool firstGesture, bool secondGesture, bool  thirdGesture, float progress, bool doorState)
         {
             this.IsTracked = isBodyTrackingIdValid;
 
@@ -139,6 +154,7 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
                 this.FirstGesture = false;
                 this.SecondGesture = false;
                 this.ThirdGesture = false;
+                this.DoorUnlockState = false;
                 //this.SteerProgress = -1.0f;
             }
             else
@@ -146,6 +162,7 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
                 this.FirstGesture = firstGesture;
                 this.SecondGesture = secondGesture;
                 this.ThirdGesture = thirdGesture;
+                this.DoorUnlockState = doorState;
                 //this.SteerProgress = progress;
             }
 

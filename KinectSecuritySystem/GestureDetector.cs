@@ -39,7 +39,12 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
         /// <summary> 
         /// The current state of the door (Unlocked or locked)
         /// </summary>
-        private bool bDoorLockState = false; 
+        private bool bDoorLockState = false;
+
+        /// <summary> 
+        /// Holds the last performed gesture for use in sequence logic 
+        /// </summary>
+        private string last_Gesture = null;
 
         /// <summary> Gesture frame source which should be tied to a body tracking ID </summary>
         private VisualGestureBuilderFrameSource vgbFrameSource = null;
@@ -170,6 +175,7 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
                         bool secondGestureDetected = this.GestureResultView.SecondGesture;
                         bool thirdGestureDetected = this.GestureResultView.ThirdGesture;
                         bool fourthGestureDetected = this.GestureResultView.FirstGesture;
+                        bool bDoorUnlockState = this.GestureResultView.DoorUnlockState;
 
                         foreach (var gesture in this.vgbFrameSource.Gestures)
                         {
@@ -180,40 +186,39 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
 
                                 if (result != null)
                                 {
-                                    if (gesture.Name.Equals(this.first_Gesture) && (result.Confidence == 1))
+                                    if (!firstGestureDetected && gesture.Name.Equals(this.first_Gesture) && (result.Confidence == 1))
                                     {
+                                        last_Gesture = gesture.Name;
                                         firstGestureDetected = result.Detected;
                                         bFirstGesture = true;
-                                        Console.WriteLine("First gesture toggled on");
                                     }
-                                    else if (gesture.Name.Equals(this.second_Gesture) && (result.Confidence == 1))
+                                    else if (!secondGestureDetected && gesture.Name.Equals(this.second_Gesture) && (result.Confidence == 1))
                                     {
+                                        last_Gesture = gesture.Name;
                                         secondGestureDetected = result.Detected;
-                                        if (bFirstGesture)
+                                        if (last_Gesture == first_Gesture)
                                         {
                                             bSecondGesture = true;
-                                            Console.WriteLine("Second gesture toggled on");
                                         }
                                         else
                                         {
-                                            bFirstGesture = false;
-                                            Console.WriteLine("first gesture toggled off");
+                                            //Gesture sequence failed, Start from beginning
+                                            //resetSequence();
                                         }
                                     }
-                                    else if (gesture.Name.Equals(this.third_Gesture) && (result.Confidence == 1))
+                                    else if (!thirdGestureDetected && gesture.Name.Equals(this.third_Gesture) && (result.Confidence == 1))
                                     {
                                         thirdGestureDetected = result.Detected;
+                                        last_Gesture = gesture.Name;
 
-                                        if (bFirstGesture && bSecondGesture)
+                                        if (bFirstGesture && last_Gesture == second_Gesture)
                                         {
                                             bThirdGesture = true;
-                                            Console.WriteLine("Third gesture toggled on");
                                         }
                                         else
                                         {
-                                            bFirstGesture = false;
-                                            bSecondGesture = false;
-                                            Console.WriteLine("First and second gesture toggled off");
+                                            //Gesture sequence failed, Start from beginning
+                                            //resetSequence();
                                         }
                                     }
                                 }
@@ -231,10 +236,23 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
                         }
 
                         // update the UI with the latest gesture detection results
-                        this.GestureResultView.UpdateGestureResult(true, firstGestureDetected, secondGestureDetected, thirdGestureDetected, 0.0f);
+                        this.GestureResultView.UpdateGestureResult(true, firstGestureDetected, secondGestureDetected, thirdGestureDetected, 0.0f, bDoorLockState);
                     }
                 }
             }
+        }
+
+        public void resetSequence()
+        {
+            last_Gesture = null;
+            bFirstGesture = false;
+            bSecondGesture = false;
+            bThirdGesture = false;
+
+            bDoorLockState = false;
+
+            // update the UI with the latest gesture detection results
+            this.GestureResultView.UpdateGestureResult(false, bFirstGesture, bSecondGesture, bThirdGesture, 0.0f, bDoorLockState);
         }
 
         /// <summary>
