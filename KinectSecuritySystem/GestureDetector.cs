@@ -27,7 +27,6 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
         private string first_Gesture = null;
         private string second_Gesture = null;
         private string third_Gesture = null;
-        private string fourth_Gesture = "HandsUp"; //null;
 
         /// <summary>
         /// Toggle each gesture after it's recognized by kinect 
@@ -39,7 +38,7 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
         /// <summary> 
         /// The current state of the door (Unlocked or locked)
         /// </summary>
-        private bool bDoorLockState = false;
+            //private bool bDoorLockState = false;
 
         /// <summary> 
         /// Holds the last performed gesture for use in sequence logic 
@@ -188,17 +187,18 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
                                 {
                                     if (!firstGestureDetected && gesture.Name.Equals(this.first_Gesture) && (result.Confidence == 1))
                                     {
-                                        last_Gesture = gesture.Name;
                                         firstGestureDetected = result.Detected;
                                         bFirstGesture = true;
+                                        last_Gesture = gesture.Name;
                                     }
                                     else if (!secondGestureDetected && gesture.Name.Equals(this.second_Gesture) && (result.Confidence == 1))
                                     {
-                                        last_Gesture = gesture.Name;
+                                        
                                         secondGestureDetected = result.Detected;
                                         if (last_Gesture == first_Gesture)
                                         {
                                             bSecondGesture = true;
+                                            last_Gesture = gesture.Name;
                                         }
                                         else
                                         {
@@ -209,11 +209,13 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
                                     else if (!thirdGestureDetected && gesture.Name.Equals(this.third_Gesture) && (result.Confidence == 1))
                                     {
                                         thirdGestureDetected = result.Detected;
-                                        last_Gesture = gesture.Name;
+                                        
 
                                         if (bFirstGesture && last_Gesture == second_Gesture)
                                         {
                                             bThirdGesture = true;
+                                            bDoorUnlockState = true;
+                                            last_Gesture = gesture.Name;
                                         }
                                         else
                                         {
@@ -223,20 +225,16 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
                                     }
                                 }
                             }
-                        }
 
-                        // Unlock the door if all three gestures have been toggled on
-                        if (bFirstGesture && bSecondGesture && bThirdGesture)
-                        {
-                            bDoorLockState = true; //Unlocked 
-                        }
-                        if (bDoorLockState)
-                        {
-                            Console.WriteLine("Door Unlocked");
+                            //Break out of loop if gesture sequence complete
+                            if (bDoorUnlockState)
+                            {
+                                break;
+                            }
                         }
 
                         // update the UI with the latest gesture detection results
-                        this.GestureResultView.UpdateGestureResult(true, firstGestureDetected, secondGestureDetected, thirdGestureDetected, 0.0f, bDoorLockState);
+                        this.GestureResultView.UpdateGestureResult(true, firstGestureDetected, secondGestureDetected, thirdGestureDetected, 0.0f, bDoorUnlockState);
                     }
                 }
             }
@@ -249,10 +247,10 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
             bSecondGesture = false;
             bThirdGesture = false;
 
-            bDoorLockState = false;
+            bool bDoorUnlockState = false;
 
             // update the UI with the latest gesture detection results
-            this.GestureResultView.UpdateGestureResult(false, bFirstGesture, bSecondGesture, bThirdGesture, 0.0f, bDoorLockState);
+            this.GestureResultView.UpdateGestureResult(false, bFirstGesture, bSecondGesture, bThirdGesture, 0.0f, bDoorUnlockState);
         }
 
         /// <summary>

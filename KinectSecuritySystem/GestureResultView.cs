@@ -80,7 +80,7 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
         {
             get
             {
-                return this.DoorUnlockState;
+                return this.doorUnlockState;
             }
 
             private set
@@ -155,7 +155,6 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
                 this.SecondGesture = false;
                 this.ThirdGesture = false;
                 this.DoorUnlockState = false;
-                //this.SteerProgress = -1.0f;
             }
             else
             {
@@ -163,7 +162,6 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
                 this.SecondGesture = secondGesture;
                 this.ThirdGesture = thirdGesture;
                 this.DoorUnlockState = doorState;
-                //this.SteerProgress = progress;
             }
 
             // move the ship in space, using the latest gesture detection results TODO
