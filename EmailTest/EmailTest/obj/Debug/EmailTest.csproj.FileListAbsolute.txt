@@ -1,0 +1,6 @@
+D:\Uni Work\Year 3\Programming Things\EmailTest\EmailTest\EmailTest\bin\Debug\EmailTest.exe.config
+D:\Uni Work\Year 3\Programming Things\EmailTest\EmailTest\EmailTest\bin\Debug\EmailTest.exe
+D:\Uni Work\Year 3\Programming Things\EmailTest\EmailTest\EmailTest\bin\Debug\EmailTest.pdb
+D:\Uni Work\Year 3\Programming Things\EmailTest\EmailTest\EmailTest\obj\Debug\EmailTest.csprojResolveAssemblyReference.cache
+D:\Uni Work\Year 3\Programming Things\EmailTest\EmailTest\EmailTest\obj\Debug\EmailTest.exe
+D:\Uni Work\Year 3\Programming Things\EmailTest\EmailTest\EmailTest\obj\Debug\EmailTest.pdb
