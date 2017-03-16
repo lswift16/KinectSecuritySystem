@@ -4,11 +4,9 @@
 // </copyright>
 //
 // <Description>
-// This program detects a set of discrete and continuous gestures for a single, tracked person.
-// If a person is tracked, the gesture detector will listen for a set of steering gestures (Steer_Left, Steer_Right, SteerProgress, etc).
-// If any steering gestures are detected, the position of the space ship will be updated using the Progress value reported by the continuous (SteerProgress) gesture.
-// If no person is tracked, the gesture detector will be paused and the space images will stop moving.
-// Note: This sample uses polling to get new frames from the Kinect sensor at 60 fps; for event notification, please see the 'DiscreteGestureBasics-WPF' sample.
+// This program was based on the microsoft sample "ContinuousGestureBasics"
+// It allows a user to set a sequence of gestures to use as a 'pin' to unlock a door by communicating over
+// Xbees to an arduino which controls a door.
 // </Description>
 //-------------------------------------------------------------------------------------------------------------------------------
 
@@ -21,6 +19,8 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
     using System.Windows.Media;
     using System.Windows.Threading;
     using Microsoft.Kinect;
+    using System.Collections.Generic;
+    using System.Windows.Controls;
 
     /// <summary>
     /// Interaction logic for the MainWindow
@@ -84,14 +84,14 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
             //this.spaceView = new SpaceView(this.spaceGrid, this.spaceImage);
 
             // initialize the GestureDetector object
-            this.gestureResultView = new GestureResultView(false, false, false, false, -1.0f, null, false);
+            this.gestureResultView = new GestureResultView(false, false, false, false, -1.0f, null, false, 0, 3);
             this.gestureDetector = new GestureDetector(this.kinectSensor, this.gestureResultView);
 
             // set data context objects for display in UI
             this.DataContext = this;
             this.kinectBodyViewbox.DataContext = this.kinectBodyView;
             this.gestureResultGrid.DataContext = this.gestureResultView;
-            this.spaceGrid.DataContext = this.gestureResultView;
+            this.outputGrid.DataContext = this.gestureResultView;
             //this.spaceGrid.DataContext = this.spaceView;
             //this.collisionResultGrid.DataContext = this.spaceView;
         }
@@ -257,6 +257,7 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
             return activeBodyIndex;
         }
 
+
         /// <summary>
         /// Retrieves the latest body frame data from the sensor and updates the associated gesture detector object
         /// </summary>
@@ -316,7 +317,7 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
                     // the active body is not tracked, pause the detector and update the UI
                     this.gestureDetector.IsPaused = true;
                     this.gestureDetector.ClosedHandState = false;
-                    this.gestureResultView.UpdateGestureResult(false, false, false, false, -1.0f, false);
+                    this.gestureResultView.UpdateGestureResult(false, false, false, false, -1.0f, false, 0);
                 }
                 else
                 {
@@ -360,6 +361,49 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
             {
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
+        }
+
+        /// <summary>
+        /// Click event for the set gestures button
+        /// </summary>
+        /// <param name="sender">The button object</param>
+        /// <param name="e">The event args</param>
+        private void setGestureSequence(object sender, RoutedEventArgs e)
+        {
+            string firstGesture = this.cmbFirst.SelectedValue.ToString();
+            string secondGesture = this.cmbSecond.SelectedValue.ToString();
+            string thirdGesture = this.cmbThird.SelectedValue.ToString();
+
+            //Reset the sequence
+            this.gestureDetector.resetSequence();
+            //Set the new gesture names
+            this.gestureDetector.setGestures(firstGesture, secondGesture, thirdGesture);
+            //Direct use to the main screen
+            this.tabControl.SelectedIndex = 0;
+        }
+
+        /// <summary>
+        /// Initializes the three comboboxes with the possible gestures names for selection
+        /// </summary>
+        /// <param name="sender">The sender (combobox) being initialized </param>
+        /// <param name="e"> Data associated with the current event</param>
+        private void ComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            //Add all possible gesture names to a list:
+            List<String> data = new List<String>();
+            data.Add("Stop_Left");
+            data.Add("Stop_Right");
+            data.Add("ThumbUp_Left");
+            data.Add("ThumbUp_Right");
+
+            //Get a ref to the combobox
+            var comboBox = sender as ComboBox;
+
+            //Assign data to the comboBox
+            comboBox.ItemsSource = data;
+
+            //Select first item
+            comboBox.SelectedIndex = 0;
         }
     }
 }

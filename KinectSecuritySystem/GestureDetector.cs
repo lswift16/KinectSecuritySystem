@@ -10,6 +10,7 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
     using System.Collections.Generic;
     using Microsoft.Kinect;
     using Microsoft.Kinect.VisualGestureBuilder;
+    using System.Windows.Media.Imaging;
 
     /// <summary>
     /// Gesture Detector class which polls for VisualGestureBuilderFrames from the Kinect sensor
@@ -35,15 +36,16 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
         private bool bSecondGesture = false;
         private bool bThirdGesture = false;
 
-        /// <summary> 
-        /// The current state of the door (Unlocked or locked)
+        /// <summary>
+        /// The current number of attempts to open the door:
         /// </summary>
-            //private bool bDoorLockState = false;
+        private int numberOfAttempts = 0;
 
         /// <summary> 
         /// Holds the last performed gesture for use in sequence logic 
         /// </summary>
         private string last_Gesture = null;
+
 
         /// <summary> Gesture frame source which should be tied to a body tracking ID </summary>
         private VisualGestureBuilderFrameSource vgbFrameSource = null;
@@ -57,7 +59,7 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
         /// <param name="gesture1"></param>
         /// <param name="gesture2"></param>
         /// <param name="gesture3"></param>
-        public void SetGestures(string gesture1, string gesture2, string gesture3)
+        public void setGestures(string gesture1, string gesture2, string gesture3)
         {
             this.first_Gesture = gesture1;
             this.second_Gesture = gesture2;
@@ -101,8 +103,8 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
             }
 
 
-            //Initialize the gestures to a set sequence
-            SetGestures("Stop_Left", "Stop_Right", "ThumbUp_Left");
+            //Initialize the gestures to a set sequence: TODO set from the UI
+            setGestures("Stop_Left", "Stop_Right", "ThumbUp_Left");
         }
 
         /// <summary> 
@@ -158,7 +160,7 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
         public void forceUIUPdate()
         {
             //Force an update without the kinect plugged in to test the UI:
-            this.GestureResultView.UpdateGestureResult(true, true, true, true, 0.0f, true);
+            this.GestureResultView.UpdateGestureResult(true, true, true, true, 0.0f, true, 1);
         }
 
         /// <summary>
@@ -193,13 +195,13 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
 
                                 if (result != null)
                                 {
-                                    if (!firstGestureDetected && gesture.Name.Equals(this.first_Gesture) && (result.Confidence == 1))
+                                    if (!firstGestureDetected && gesture.Name.Equals(this.first_Gesture) && (result.Confidence > 0.8))
                                     {
                                         firstGestureDetected = result.Detected;
                                         bFirstGesture = true;
                                         last_Gesture = gesture.Name;
                                     }
-                                    else if (!secondGestureDetected && gesture.Name.Equals(this.second_Gesture) && (result.Confidence == 1))
+                                    else if (!secondGestureDetected && gesture.Name.Equals(this.second_Gesture) && (result.Confidence > 0.8))
                                     {
                                         
                                         secondGestureDetected = result.Detected;
@@ -214,7 +216,7 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
                                             //resetSequence();
                                         }
                                     }
-                                    else if (!thirdGestureDetected && gesture.Name.Equals(this.third_Gesture) && (result.Confidence == 1))
+                                    else if (!thirdGestureDetected && gesture.Name.Equals(this.third_Gesture) && (result.Confidence > 0.8))
                                     {
                                         thirdGestureDetected = result.Detected;
                                         
@@ -242,24 +244,79 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
                         }
 
                         // update the UI with the latest gesture detection results
-                        this.GestureResultView.UpdateGestureResult(true, firstGestureDetected, secondGestureDetected, thirdGestureDetected, 0.0f, bDoorUnlockState);
+                        this.GestureResultView.UpdateGestureResult(true, firstGestureDetected, secondGestureDetected,
+                            thirdGestureDetected, 0.0f, bDoorUnlockState, numberOfAttempts);
                     }
                 }
             }
         }
 
+
+        /// <summary>
+        /// Resets the current sequence of gestures after a failed attempt, 
+        /// or when changing the unlock sequence
+        /// </summary>
         public void resetSequence()
         {
+            //Reset variables
             last_Gesture = null;
             bFirstGesture = false;
             bSecondGesture = false;
             bThirdGesture = false;
-
             bool bDoorUnlockState = false;
 
+            //Increment attempts made
+            numberOfAttempts++;
+
             // update the UI with the latest gesture detection results
-            this.GestureResultView.UpdateGestureResult(false, bFirstGesture, bSecondGesture, bThirdGesture, 0.0f, bDoorUnlockState);
+            this.GestureResultView.UpdateGestureResult(false, bFirstGesture, bSecondGesture, bThirdGesture, 0.0f, bDoorUnlockState, 0);
         }
+
+        //async private void Screenshot()
+        //{
+        //    // Thread protetction on FileIO actions
+        //    if (!isTakingScreenshot)
+        //    {
+        //        isTakingScreenshot = true;
+        //        RenderTargetBitmap renderTargetBitmap =
+        //            new RenderTargetBitmap();
+        //        await renderTargetBitmap.RenderAsync(RootGrid);
+        //        var pixelBuffer = await renderTargetBitmap.GetPixelsAsync();
+
+        //        var savePicker = new FileSavePicker();
+        //        savePicker.DefaultFileExtension = ".png";
+        //        savePicker.SuggestedStartLocation =
+        //            PickerLocationId.PicturesLibrary;
+        //        savePicker.SuggestedFileName = "snapshot.png";
+
+        //        // Prompt the user to select a file
+        //        var saveFile = await savePicker.PickSaveFileAsync();
+
+        //        // Verify the user selected a file
+        //        if (saveFile != null)
+        //        {
+        //            // Encode the image to the selected file on disk
+        //            using (var fileStream =
+        //                await saveFile.OpenAsync(FileAccessMode.ReadWrite))
+        //            {
+        //                var encoder =
+        //                    await BitmapEncoder.CreateAsync(
+        //                          BitmapEncoder.PngEncoderId,
+        //                          fileStream);
+        //                encoder.SetPixelData(
+        //                    BitmapPixelFormat.Bgra8,
+        //                    BitmapAlphaMode.Ignore,
+        //                    (uint)renderTargetBitmap.PixelWidth,
+        //                    (uint)renderTargetBitmap.PixelHeight,
+        //                    DisplayInformation.GetForCurrentView().LogicalDpi,
+        //                    DisplayInformation.GetForCurrentView().LogicalDpi,
+        //                    pixelBuffer.ToArray());
+        //                await encoder.FlushAsync();
+        //            }
+        //        }
+        //        isTakingScreenshot = false;
+        //    }
+        //}
 
         /// <summary>
         /// Disposes the VisualGestureBuilderFrameSource and VisualGestureBuilderFrameReader objects

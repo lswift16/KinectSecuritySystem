@@ -18,6 +18,16 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
     /// </summary>
     public sealed class GestureResultView : BindableBase
     {
+        /// <summary>
+        /// The current number of tries/attempts to unlock the door
+        /// </summary>
+        private int numberOfTries = 0;
+
+        /// <summary>
+        /// The current number of attempts left until the security alert is activated
+        /// </summary>
+        private int numberOfTriesLeft = 3;
+
         ///<summary>
         /// The current state of the door (locked/Unlocked)
         /// </summary>
@@ -48,7 +58,8 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
         /// 
         /// <param name="progress">Progress value of the 'SteerProgress' gesture</param>
         /// <param name="space">SpaceView object in UI which should be updated with latest gesture result data</param>
-        public GestureResultView(bool isTracked, bool firstGesture, bool secondGesture, bool thirdGesture, float progress, SpaceView space, bool doorUnlockState)
+        public GestureResultView(bool isTracked, bool firstGesture, bool secondGesture, bool thirdGesture, float progress, SpaceView space, bool doorUnlockState,
+                                 int numberOfTries, int numberOfTriesLeft)
         {
             
             this.IsTracked = isTracked;
@@ -58,6 +69,8 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
             //this.SteerProgress = progress;
             this.spaceView = space;
             this.DoorUnlockState = doorUnlockState;
+            this.NumberOfTries = numberOfTries;
+            this.NumberOfTriesLeft = numberOfTriesLeft;
         }
 
         /// <summary> 
@@ -76,6 +89,9 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
             }
         }
 
+        /// <summary>
+        /// Gets or sets the current state of the 'Door' for use when unlocking
+        /// </summary>
         public bool DoorUnlockState
         {
             get
@@ -86,6 +102,38 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
             private set
             {
                 this.SetProperty(ref this.doorUnlockState, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the number of attempts to unlock the door
+        /// </summary>
+        public int NumberOfTries
+        {
+            get
+            {
+                return this.numberOfTries;
+            }
+
+            private set
+            {
+                this.SetProperty(ref this.numberOfTries, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the number of tries left before activating the security alert
+        /// </summary>
+        public int NumberOfTriesLeft
+        {
+            get
+            {
+                return this.numberOfTriesLeft;
+            }
+
+            private set
+            {
+                this.SetProperty(ref this.numberOfTriesLeft, value);
             }
         }
 
@@ -145,7 +193,8 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
         /// <param name="right">True, if detection results indicate that the user is attempting to turn the ship right</param>
         /// <param name="straight">True, if detection results indicate that the user is attempting to keep the ship straight</param>
         /// <param name="progress">The current progress value of the 'SteerProgress' continuous gesture</param>
-        public void UpdateGestureResult(bool isBodyTrackingIdValid, bool firstGesture, bool secondGesture, bool  thirdGesture, float progress, bool doorState)
+        public void UpdateGestureResult(bool isBodyTrackingIdValid, bool firstGesture, bool secondGesture, bool  thirdGesture, float progress, bool doorState,
+                                        int numberOfTries)
         {
             this.IsTracked = isBodyTrackingIdValid;
 
@@ -155,6 +204,7 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
                 this.SecondGesture = false;
                 this.ThirdGesture = false;
                 this.DoorUnlockState = false;
+                this.NumberOfTries = 0;
             }
             else
             {
@@ -162,6 +212,7 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
                 this.SecondGesture = secondGesture;
                 this.ThirdGesture = thirdGesture;
                 this.DoorUnlockState = doorState;
+                this.NumberOfTries = numberOfTries;
             }
 
             // move the ship in space, using the latest gesture detection results TODO
