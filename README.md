@@ -54,14 +54,20 @@ Upon failure an email is sent by the arduino to the owner of the system.
 
 The arduino does this by...
 
-### Tutorials
+### References
 
-#### [Developers](https://www.youtube.com/watch?v=-IEaWydqghY)
+#### [Kinect Gesture Creation] https://channel9.msdn.com/Blogs/k4wdev/Custom-Gestures-End-to-End-with-Kinect-and-Visual-Gesture-Builder
 
 Developers, developers, developers
 
-### Software
+### Software Used
+
+#### Visual Studio
 
 #### Kinect Gesture Builder:
 
-This software allows the conversion of raw video footage (recorded via the Kinect 2) into gestures. This is done by...
+This software allows the conversion of raw video footage (recorded via the Kinect 2) into gestures. This is done by importing video footage of a gesture being performed, and then giving each frame a mark of either TRUE (gesture is being performed), or FALSE (gesture isn't being performed). This is then processed using Kinect Gesture Builder to create a .gbd file that is used in our system.
+
+
+
+
