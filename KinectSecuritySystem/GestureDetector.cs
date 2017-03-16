@@ -155,11 +155,19 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
             }
         }
 
+        public void forceUIUPdate()
+        {
+            //Force an update without the kinect plugged in to test the UI:
+            this.GestureResultView.UpdateGestureResult(true, true, true, true, 0.0f, true);
+        }
+
         /// <summary>
         /// Retrieves the latest gesture detection results from the sensor
         /// </summary>
         public void UpdateGestureData()
         {
+            
+
             using (var frame = this.vgbFrameReader.CalculateAndAcquireLatestFrame())
             {
                 if (frame != null)

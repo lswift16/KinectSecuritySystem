@@ -91,6 +91,7 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
             this.DataContext = this;
             this.kinectBodyViewbox.DataContext = this.kinectBodyView;
             this.gestureResultGrid.DataContext = this.gestureResultView;
+            this.spaceGrid.DataContext = this.gestureResultView;
             //this.spaceGrid.DataContext = this.spaceView;
             //this.collisionResultGrid.DataContext = this.spaceView;
         }
@@ -261,6 +262,9 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
         /// </summary>
         private void UpdateKinectFrameData()
         {
+            //FORCE A UI UPDATE TODO:
+            this.gestureDetector.forceUIUPdate();
+
             bool dataReceived = false;
 
             using (var bodyFrame = this.bodyFrameReader.AcquireLatestFrame())
