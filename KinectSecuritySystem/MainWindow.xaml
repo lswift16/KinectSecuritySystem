@@ -24,7 +24,7 @@
         <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="Kinect Security System" VerticalAlignment="Bottom" Margin="0 0 -1 0" Foreground="{StaticResource MediumGreyBrush}" FontFamily="Segoe UI" FontSize="18"/>
         <Image Grid.Row="0" Source="Images\Status.png" Stretch="None" HorizontalAlignment="Right" Margin="0 0 0 5" />
         
-        <TabControl Name="tabControl" Margin="0,63,0,265" Grid.RowSpan="2">
+        <TabControl Name="tabControl" Margin="0,8,0,10" Grid.Row="1">
             <TabItem Header="Unlock door"> 
         <Grid x:Name="contentGrid" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
@@ -185,7 +185,11 @@
                     <Button Content="Set unlock sequence" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,10,10,0"
                             FontSize="14" FontFamily="Segoe UI" FontWeight="SemiBold"
                             Click="setGestureSequence"></Button>
-                    
+
+                    <Button Content="Test Screenshot" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,10,10,0"
+                            FontSize="14" FontFamily="Segoe UI" FontWeight="SemiBold"
+                            Click="Button_Click"></Button>
+
                 </Grid>
             </TabItem>
         </TabControl>

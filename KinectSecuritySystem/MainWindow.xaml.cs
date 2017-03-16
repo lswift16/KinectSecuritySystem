@@ -21,6 +21,12 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
     using Microsoft.Kinect;
     using System.Collections.Generic;
     using System.Windows.Controls;
+    using System.Windows.Media.Imaging;
+    using System.IO;
+    using System.Net;
+    using System.Net.Mail;
+    using System.Security.Cryptography.X509Certificates;
+    using System.Net.Security;
 
     /// <summary>
     /// Interaction logic for the MainWindow
@@ -57,6 +63,20 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
         /// <summary> Timer for updating Kinect frames and space images at 60 fps </summary>
         private DispatcherTimer dispatcherTimer = null;
 
+
+        //Used for screenshot: 
+
+        /// <summary>
+        /// Reader for color frames
+        /// </summary>
+        private ColorFrameReader colorFrameReader = null;
+
+        /// <summary>
+        /// Bitmap to display
+        /// </summary>
+        private WriteableBitmap colorBitmap = null;
+
+
         /// <summary>
         /// Initializes a new instance of the MainWindow class
         /// </summary>
@@ -67,6 +87,19 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
 
             // only one sensor is currently supported
             this.kinectSensor = KinectSensor.GetDefault();
+
+            // open the reader for the color frames
+            this.colorFrameReader = this.kinectSensor.ColorFrameSource.OpenReader();
+
+            // wire handler for frame arrival
+            this.colorFrameReader.FrameArrived += this.Reader_ColorFrameArrived;
+
+            // create the colorFrameDescription from the ColorFrameSource using Bgra format
+            FrameDescription colorFrameDescription = this.kinectSensor.ColorFrameSource.CreateFrameDescription(ColorImageFormat.Bgra);
+
+            // create the bitmap to display
+            this.colorBitmap = new WriteableBitmap(colorFrameDescription.Width, colorFrameDescription.Height, 96.0, 96.0, PixelFormats.Bgr32, null);
+
 
             // open the sensor
             this.kinectSensor.Open();
@@ -94,6 +127,45 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
             this.outputGrid.DataContext = this.gestureResultView;
             //this.spaceGrid.DataContext = this.spaceView;
             //this.collisionResultGrid.DataContext = this.spaceView;
+        }
+
+        /// <summary>
+        /// Handles taking a picture during 'security alert' for sending via email
+        /// 
+        /// </summary>
+        private void screenShot()
+        {
+            if (this.colorBitmap != null)
+            {
+                //Png encoder to save as .png
+                BitmapEncoder encoder = new PngBitmapEncoder();
+
+                //create a frame
+                encoder.Frames.Add(BitmapFrame.Create(this.colorBitmap));
+
+                string photosLoc = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+
+                string path = Path.Combine(photosLoc, "KinectScreenshot" + ".png");
+
+                //Write screenshot .png to disk
+                try
+                {
+                    using (FileStream fs = new FileStream(path, FileMode.Create))
+                    {
+                        encoder.Save(fs);
+                    }
+
+                    Console.WriteLine("Screenshot saved in " + path);
+
+                    sendEmail();
+                }
+                catch (IOException e)
+                {
+                    //TODO statusText ?
+                    Console.WriteLine(e.Message);
+                }
+            }
+
         }
 
         /// <summary>
@@ -155,29 +227,41 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
         {
             this.UpdateKinectStatusText();
             this.UpdateKinectFrameData();
+        }
 
-            //if (!this.spaceView.ExplosionInProgress)
-            //{
-            //    if (this.bodies != null)
-            //    {
-            //        // only move asteroids when someone is available to drive the ship
-            //        if (this.bodies[this.activeBodyIndex].IsTracked)
-            //        {
-            //            this.spaceView.UpdateTimeSinceCollision(false);
-            //            this.spaceView.UpdateAsteroids();
-            //            this.spaceView.CheckForCollision();
-            //        }
-            //        else
-            //        {
-            //            // pause the collision timer when no bodies are tracked
-            //            this.spaceView.UpdateTimeSinceCollision(true);
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    this.spaceView.UpdateExplosion();
-            //}
+        /// <summary>
+        /// Handles the color frame data arriving from the sensor
+        /// </summary>
+        /// <param name="sender">object sending the event</param>
+        /// <param name="e">event arguments</param>
+        private void Reader_ColorFrameArrived(object sender, ColorFrameArrivedEventArgs e)
+        {
+            // ColorFrame is IDisposable
+            using (ColorFrame colorFrame = e.FrameReference.AcquireFrame())
+            {
+                if (colorFrame != null)
+                {
+                    FrameDescription colorFrameDescription = colorFrame.FrameDescription;
+
+                    using (KinectBuffer colorBuffer = colorFrame.LockRawImageBuffer())
+                    {
+                        this.colorBitmap.Lock();
+
+                        // verify data and write the new color frame data to the display bitmap
+                        if ((colorFrameDescription.Width == this.colorBitmap.PixelWidth) && (colorFrameDescription.Height == this.colorBitmap.PixelHeight))
+                        {
+                            colorFrame.CopyConvertedFrameDataToIntPtr(
+                                this.colorBitmap.BackBuffer,
+                                (uint)(colorFrameDescription.Width * colorFrameDescription.Height * 4),
+                                ColorImageFormat.Bgra);
+
+                            this.colorBitmap.AddDirtyRect(new Int32Rect(0, 0, this.colorBitmap.PixelWidth, this.colorBitmap.PixelHeight));
+                        }
+
+                        this.colorBitmap.Unlock();
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -264,7 +348,7 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
         private void UpdateKinectFrameData()
         {
             //FORCE A UI UPDATE TODO:
-            this.gestureDetector.forceUIUPdate();
+            //this.gestureDetector.forceUIUPdate();
 
             bool dataReceived = false;
 
@@ -304,6 +388,8 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
 
                 // visualize the new body data
                 this.kinectBodyView.UpdateBodyData(activeBody);
+
+                this.gestureDetector.updateArmData(activeBody);
 
                 // visualize the new gesture data
                 if (activeBody.TrackingId != this.gestureDetector.TrackingId)
@@ -404,6 +490,52 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
 
             //Select first item
             comboBox.SelectedIndex = 0;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            screenShot();
+        }
+
+        /// <summary>
+        /// Sends an email with an attached screenshot
+        /// </summary>
+        private void sendEmail()
+        {
+            string currentTime = DateTime.Now.ToString("dd/MM/yy h:mm:ss tt");
+
+            //Set the attachment path to that of the application
+            string attachmentPath = "C:/Users/Luke/Pictures";
+            //Get the attachment data.xml found at this path
+            System.Net.Mail.Attachment attachment = new System.Net.Mail.Attachment(attachmentPath + "/KinectScreenshot.png");
+
+            //Make a new email message
+            MailMessage mail = new MailMessage();
+
+            //Set the various variables required for an email
+            mail.From = new MailAddress("programmingthings@gmail.com");
+            mail.To.Add("programmingthings@gmail.com");
+            mail.Subject = "KinectSecurity Alert";
+            mail.Body = "A user has attempted to unlock your KinectSecurity System at: " + currentTime;
+            mail.Attachments.Add(attachment);
+
+            //Create a new emailServer and set its details including email & password
+            SmtpClient smtpServer = new SmtpClient("smtp.gmail.com");
+            smtpServer.Port = 587;
+            smtpServer.Credentials = new System.Net.NetworkCredential("programmingthings", "Kangaroo") as ICredentialsByHost;
+            smtpServer.EnableSsl = true;
+
+            //Check the security certificates and return applicable errors (if any exist)
+            ServicePointManager.ServerCertificateValidationCallback =
+                delegate (object s, X509Certificate certificate, X509Chain chain,
+                SslPolicyErrors sslPolicyErrors)
+                { return true; };
+
+            //Send the email
+            smtpServer.Send(mail);
+
+            //Dispose of that email
+            mail.Dispose();
         }
     }
 }

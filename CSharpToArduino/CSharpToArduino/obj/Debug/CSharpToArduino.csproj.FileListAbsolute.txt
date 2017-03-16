@@ -4,3 +4,6 @@ C:\Users\Tom\Documents\Final Year\Programming Things\Assignment 2\CSharpToArduin
 C:\Users\Tom\Documents\Final Year\Programming Things\Assignment 2\CSharpToArduino\CSharpToArduino\obj\Debug\CSharpToArduino.csprojResolveAssemblyReference.cache
 C:\Users\Tom\Documents\Final Year\Programming Things\Assignment 2\CSharpToArduino\CSharpToArduino\obj\Debug\CSharpToArduino.exe
 C:\Users\Tom\Documents\Final Year\Programming Things\Assignment 2\CSharpToArduino\CSharpToArduino\obj\Debug\CSharpToArduino.pdb
+C:\Users\Luke\Source\Repos\KinectSecuritySystem\CSharpToArduino\CSharpToArduino\bin\Debug\CSharpToArduino.exe.config
+C:\Users\Luke\Source\Repos\KinectSecuritySystem\CSharpToArduino\CSharpToArduino\obj\Debug\CSharpToArduino.exe
+C:\Users\Luke\Source\Repos\KinectSecuritySystem\CSharpToArduino\CSharpToArduino\obj\Debug\CSharpToArduino.pdb
