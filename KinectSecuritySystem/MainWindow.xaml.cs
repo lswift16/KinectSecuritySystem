@@ -389,7 +389,7 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
                 // visualize the new body data
                 this.kinectBodyView.UpdateBodyData(activeBody);
 
-                this.gestureDetector.updateArmData(activeBody);
+                //this.gestureDetector.updateArmData(activeBody);
 
                 // visualize the new gesture data
                 if (activeBody.TrackingId != this.gestureDetector.TrackingId)

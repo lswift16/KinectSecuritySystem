@@ -14,6 +14,8 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
     using System.Threading.Tasks;
     using System.IO.Ports;              //Library for serial stuff
     using System.Windows.Media;
+    using System.Threading;
+    using System.Diagnostics;
 
 
 
@@ -43,6 +45,7 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
         private bool bFirstGesture = false;
         private bool bSecondGesture = false;
         private bool bThirdGesture = false;
+        private bool doorUnlocked = false;
 
         /// <summary>
         /// The current number of attempts to open the door:
@@ -61,6 +64,9 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
         private string last_Gesture = null;
 
         private string target_Gesture = null;
+
+        private Stopwatch detectionDelay = new Stopwatch();
+     
 
         /// <summary> Gesture frame source which should be tied to a body tracking ID </summary>
         private VisualGestureBuilderFrameSource vgbFrameSource = null;
@@ -222,6 +228,7 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
         /// </summary>
         public void UpdateGestureData()
         {
+            this.detectionDelay.Start();
             using (var frame = this.vgbFrameReader.CalculateAndAcquireLatestFrame())
             {
                 if (frame != null)
@@ -232,11 +239,11 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
 
                     if (discreteResults != null)
                     {
-                        bool firstGestureDetected = this.GestureResultView.FirstGesture;
-                        bool secondGestureDetected = this.GestureResultView.SecondGesture;
-                        bool thirdGestureDetected = this.GestureResultView.ThirdGesture;
+                       // bool firstGestureDetected = false;// = this.GestureResultView.FirstGesture;
+                       // bool secondGestureDetected = false;// = //this.GestureResultView.SecondGesture;
+                       // bool thirdGestureDetected = false;// = //this.GestureResultView.ThirdGesture;
                         //bool fourthGestureDetected = this.GestureResultView.FirstGesture;
-                        bool bDoorUnlockState = this.GestureResultView.DoorUnlockState;
+                       // bool bDoorUnlockState;// = this.GestureResultView.DoorUnlockState;
 
                         foreach (var gesture in this.vgbFrameSource.Gestures)
                         {
@@ -247,161 +254,128 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
 
                                 if (result != null)
                                 {
-                                    if(!firstGestureDetected && gesture.Name.Equals(this.first_Gesture) && (result.Confidence > 0.8))
+                                    if (result.Confidence > 0.8 && detectionDelay.ElapsedMilliseconds > 2000)
                                     {
-                                        //If the first gesture is our target gesture
-                                        if(gesture.Name.Equals(this.target_Gesture))
+                                        if (gesture.Name.Equals(this.first_Gesture))
                                         {
-                                            firstGestureDetected = result.Detected;
-                                            //bFirstGesture = true; //Not required
-                                            target_Gesture = second_Gesture;
+                                            if (target_Gesture.Equals(gesture.Name))
+                                            {
+                                                bFirstGesture = true;
+                                                target_Gesture = this.second_Gesture;
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("First gesture detected but not target gesture");
+                                                bFirstGesture = false;
+                                                resetSequence();
+                                                
+                                            }
+                                            detectionDelay.Restart();
+                                            //this.GestureResultView.UpdateGestureResult(true, bFirstGesture, bSecondGesture,
+                                             //  bThirdGesture, 0.0f, false/*todo*/, numberOfAttempts);
                                         }
-                                        else
+                                        else if (gesture.Name.Equals(this.second_Gesture))
                                         {
-                                            firstGestureDetected = false;
-                                            target_Gesture = first_Gesture;
-                                            //bFirstGesture = false; //Not required
-                                            resetSequence();
+                                            if (target_Gesture.Equals(gesture.Name))
+                                            {
+                                                bSecondGesture = true;
+                                                target_Gesture = this.third_Gesture;
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("Second gesture detected but not target gesture");
+                                                bSecondGesture = false;
+                                                resetSequence();
+                                               
+                                            }
+                                            detectionDelay.Restart();
+                                           // this.GestureResultView.UpdateGestureResult(true, bFirstGesture, bSecondGesture,
+                                            //   bThirdGesture, 0.0f, false/*todo*/, numberOfAttempts);
                                         }
-                                    }
-                                    else if(!secondGestureDetected && gesture.Name.Equals(this.second_Gesture) && (result.Confidence > 0.8))
-                                    {
-                                        //If the second gesture is our target gesture
-                                        if(gesture.Name.Equals(this.target_Gesture))
+                                        else if (gesture.Name.Equals(this.third_Gesture))
                                         {
-                                            secondGestureDetected = result.Detected;
-                                            //bSecondGesture = true; //Not required
-                                            target_Gesture = third_Gesture;
-                                        }
-                                        else
-                                        {
-                                            secondGestureDetected = false;
-                                            target_Gesture = first_Gesture;
-                                            //bSecondGesture = false; //Not required
-                                            resetSequence();
-                                        }
-                                    }
-                                    else if(!thirdGestureDetected && gesture.Name.Equals(this.third_Gesture) && (result.Confidence > 0.8))
-                                    {
-                                        //If the third gesture is our target gesture
-                                        if(gesture.Name.Equals(this.target_Gesture))
-                                        {
-                                            thirdGestureDetected = result.Detected;
-                                            //bThirdGesture = true; //Not required
-                                        }
-                                        else
-                                        {
-                                            thirdGestureDetected = false;
-                                            target_Gesture = first_Gesture;
-                                            //bThirdGesture = false; //Not required
-                                            resetSequence();
-                                        }
-                                    }
+                                            if (target_Gesture.Equals(gesture.Name))
+                                            {
+                                                bThirdGesture = true;
+                                                target_Gesture = "";
 
-                                    ////First gesture picked up with confidence
-                                    //if (gesture.Name.Equals(this.first_Gesture) && (result.Confidence > 0.8))
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("Third gesture detected but not target gesture");
+                                                bThirdGesture = false;
+                                                resetSequence();
+                                               
+                                            }
+                                            detectionDelay.Restart();
+                                            //this.GestureResultView.UpdateGestureResult(true, bFirstGesture, bSecondGesture,
+                                             //   bThirdGesture, 0.0f, true, numberOfAttempts);
+                                        }
+                                    }
+                                    //if(!firstGestureDetected && gesture.Name.Equals(this.first_Gesture) && (result.Confidence > 0.8) 
+                                    //    && (detectionDelay.ElapsedMilliseconds > 2000))
                                     //{
-                                    //    //If this gesture hasnt already been unlocked:
-                                    //    if (!firstGestureDetected)
+                                    //    //If the first gesture is our target gesture
+                                    //    if(gesture.Name.Equals(this.target_Gesture))
                                     //    {
                                     //        firstGestureDetected = result.Detected;
-
-                                    //        bFirstGesture = true;
-                                    //        last_Gesture = gesture.Name;
+                                    //        target_Gesture = second_Gesture;
                                     //    }
-                                    //    //This gesture has already been performed:
                                     //    else
                                     //    {
                                     //        firstGestureDetected = false;
+                                    //        target_Gesture = first_Gesture;
+                                    //        resetSequence();
+                                            
+                                    //    }
+                                    //    this.detectionDelay.Restart();
+                                    //}
+                                    //else if(!secondGestureDetected && gesture.Name.Equals(this.second_Gesture) && (result.Confidence > 0.8)
+                                    //    && (detectionDelay.ElapsedMilliseconds > 2000))
+                                    //{
+                                    //    //If the second gesture is our target gesture
+                                    //    if(gesture.Name.Equals(this.target_Gesture))
+                                    //    {
+                                    //        secondGestureDetected = result.Detected;
+                                    //        //bSecondGesture = true; //Not required
+                                    //        target_Gesture = third_Gesture;
+                                            
+                                    //        //detectionDelay = Stopwatch.StartNew();
+                                    //    }
+                                    //    else
+                                    //    {
                                     //        secondGestureDetected = false;
+                                    //        target_Gesture = first_Gesture;
+                                    //        //bSecondGesture = false; //Not required
+                                    //        resetSequence();
+                                    //    }
+                                    //    this.detectionDelay.Restart();
+                                    //}
+                                    //else if(!thirdGestureDetected && gesture.Name.Equals(this.third_Gesture) && (result.Confidence > 0.8) 
+                                    //    && (detectionDelay.ElapsedMilliseconds > 2000))
+                                    //{
+                                    //    //If the third gesture is our target gesture
+                                    //    if(gesture.Name.Equals(this.target_Gesture))
+                                    //    {
+                                    //        thirdGestureDetected = result.Detected;
+                                    //        //bThirdGesture = true; //Not required
+                                            
+                                    //        //detectionDelay = Stopwatch.StartNew();
+                                    //    }
+                                    //    else
+                                    //    {
                                     //        thirdGestureDetected = false;
+                                    //        target_Gesture = first_Gesture;
+                                    //        //bThirdGesture = false; //Not required
                                     //        resetSequence();
                                     //    }
-                                    //}
-                                    ////Second gesture picked up with confidence
-                                    //if (gesture.Name.Equals(this.second_Gesture) && (result.Confidence > 0.8))
-                                    //{
-                                    //    //If this gesture hasnt already been unlocked:
-                                    //    if (!secondGestureDetected)
-                                    //    {
-                                    //        if (last_Gesture == first_Gesture)
-                                    //        {
-                                    //            secondGestureDetected = result.Detected;
-
-                                    //            bSecondGesture = true;
-                                    //            last_Gesture = gesture.Name;
-                                    //        }
-                                    //        else
-                                    //        {
-                                    //            firstGestureDetected = false;
-                                    //            secondGestureDetected = false;
-                                    //            thirdGestureDetected = false;
-                                    //            resetSequence();
-                                    //        }
-                                    //    }
-                                    //    //This gesture has already been performed:
-                                    //    else
-                                    //    {
-                                    //        firstGestureDetected = false;
-                                    //        secondGestureDetected = false;
-                                    //        thirdGestureDetected = false;
-                                    //        resetSequence();
-                                    //    }
-                                    //}
-                                    ////Third Gesture picked up with confidence 
-                                    //if (gesture.Name.Equals(this.third_Gesture) && (result.Confidence > 0.8))
-                                    //{
-                                    //    //If this gesture hasnt already been unlocked:
-                                    //    if (!thirdGestureDetected)
-                                    //    {
-                                    //        if (last_Gesture == second_Gesture)
-                                    //        {
-                                    //            thirdGestureDetected = result.Detected;
-
-                                    //            bThirdGesture = true;
-                                    //            last_Gesture = gesture.Name;
-                                    //        }
-                                    //        else
-                                    //        {
-                                    //            firstGestureDetected = false;
-                                    //            secondGestureDetected = false;
-                                    //            resetSequence();
-                                    //        }
-                                    //    }
-                                    //    else
-                                    //    {
-                                    //        firstGestureDetected = false;
-                                    //        secondGestureDetected = false;
-                                    //        resetSequence();
-                                    //    }
-
-
-                                    //    //if (bFirstGesture && last_Gesture == second_Gesture)
-                                    //    //{
-                                    //    //    thirdGestureDetected = result.Detected;
-                                    //    //    bThirdGesture = true;
-                                    //    //    bDoorUnlockState = true;
-                                    //    //    last_Gesture = gesture.Name;
-                                    //    //}
-                                    //    //else
-                                    //    //{
-                                    //    //    //Gesture sequence failed, Start from beginning
-                                    //    //    firstGestureDetected = false;
-                                    //    //    secondGestureDetected = false;
-                                    //    //    thirdGestureDetected = false;
-                                    //    //    resetSequence();
-                                    //    //}
-                                    //}
-                                    //if ((gesture.Name != null || gesture.Name != "") && result.Confidence > 0.8)
-                                    //{
-                                    //    //Any other gesture performed 
-                                    //    resetSequence();
+                                    //    this.detectionDelay.Restart();
                                     //}
                                 }
                             }
-
+                            // Console.WriteLine(detectionDelay.ElapsedMilliseconds);
                             //Break out of loop if gesture sequence complete
-                            if (bDoorUnlockState)
+                            if (doorUnlocked)
                             {
                                 break;
                             }
@@ -412,15 +386,18 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
                         //    resetSequence();
                         //}
 
-                        if (bDoorUnlockState)
+                        if (doorUnlocked)
                         {
                             openDoor();
+                            this.GestureResultView.UpdateGestureResult(true, true, true, true, 0.0f, true, numberOfAttempts);
                         }
-                        
+                        this.GestureResultView.UpdateGestureResult(true, bFirstGesture, bSecondGesture,
+                           bThirdGesture, 0.0f, doorUnlocked, numberOfAttempts);
 
-                        // update the UI with the latest gesture detection results
-                        this.GestureResultView.UpdateGestureResult(true, firstGestureDetected, secondGestureDetected,
-                            thirdGestureDetected, 0.0f, bDoorUnlockState, numberOfAttempts);
+                        Console.WriteLine("1st Gesture: " + bFirstGesture);
+                        Console.WriteLine("2nd Gesture:" + bSecondGesture);
+                        Console.WriteLine("3rd Gesture:" + bThirdGesture);
+                        Console.WriteLine("target:" + target_Gesture);
                     }
                 }
             }
@@ -439,7 +416,7 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
             bSecondGesture = false;
             bThirdGesture = false;
             bool bDoorUnlockState = false;
-
+            target_Gesture = first_Gesture;
             //Increment attempts made
             numberOfAttempts++;
 
