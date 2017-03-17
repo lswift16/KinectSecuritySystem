@@ -64,10 +64,12 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
         /// <summary> Timer for updating Kinect frames and space images at 60 fps </summary>
         private DispatcherTimer dispatcherTimer = null;
 
-
+        /// <summary>  </summary>
         private Stopwatch updateTimer = new Stopwatch();
 
+        /// <summary>  </summary>
         private RobotControl robotControl = new RobotControl();
+
         /// <summary>
         /// Reader for color frames
         /// </summary>
@@ -77,7 +79,6 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
         /// Bitmap to display
         /// </summary>
         private WriteableBitmap colorBitmap = null;
-
 
         /// <summary>
         /// Initializes a new instance of the MainWindow class
@@ -101,7 +102,6 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
 
             // create the bitmap to display
             this.colorBitmap = new WriteableBitmap(colorFrameDescription.Width, colorFrameDescription.Height, 96.0, 96.0, PixelFormats.Bgr32, null);
-
 
             // open the sensor
             this.kinectSensor.Open();
@@ -135,7 +135,6 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
 
         /// <summary>
         /// Handles taking a picture during 'security alert' for sending via email
-        /// 
         /// </summary>
         private void screenShot()
         {
@@ -393,15 +392,11 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
                 // visualize the new body data
                 this.kinectBodyView.UpdateBodyData(activeBody);
 
-                //
-                //Console.WriteLine(this.updateTimer.ElapsedMilliseconds);
-                if(this.updateTimer.ElapsedMilliseconds > 3000 && this.gestureResultView.DoorUnlockState)
+                if(this.updateTimer.ElapsedMilliseconds > 1500 && this.gestureResultView.DoorUnlockState)
                 {
                     this.robotControl.updateArmData(activeBody);
                     this.updateTimer.Restart();
                 }
-                
-                //this.gestureDetector.updateArmData(activeBody);
 
                 // visualize the new gesture data
                 if (activeBody.TrackingId != this.gestureDetector.TrackingId)
@@ -514,13 +509,18 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
             comboBox.SelectedIndex = 0;
         }
 
+        /// <summary>
+        /// Test button for screenshot functionality
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             screenShot();
         }
 
         /// <summary>
-        /// Sends an email with an attached screenshot
+        /// Sends an email with an attached screenshot and current date/time
         /// </summary>
         private void sendEmail()
         {

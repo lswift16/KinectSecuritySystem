@@ -169,12 +169,6 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
 
                         foreach (JointType jointType in joints.Keys)
                         {
-
-                            //if (jointType == JointType.WristRight)
-                            //{
-                                
-                            //}
-
                             // sometimes the depth(Z) of an inferred joint may show as negative
                             // clamp down to 0.1f to prevent coordinatemapper from returning (-Infinity, -Infinity)
                             CameraSpacePoint position = joints[jointType].Position;

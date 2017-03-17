@@ -25,8 +25,6 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
     /// </summary>
     public sealed class GestureDetector : IDisposable
     {
-        
-
         /// <summary> Path to the gesture database that was trained with VGB </summary>
         private readonly string gestureDatabase = @"Database\Stop.gbd";
 
@@ -268,7 +266,6 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
                                     }
                                 }
                             }
-                            //Console.WriteLine(detectionDelay.ElapsedMilliseconds);
                             //Break out of loop if gesture sequence complete
                             if (doorUnlocked)
                             {
@@ -276,11 +273,7 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
                             }
                         }
 
-                        if (doorUnlocked)
-                        {
-                            openDoor();
-                        }
-                        else if (numberOfAttempts >= 3)
+                        if (!doorUnlocked && numberOfAttempts >= 3)
                         {
                             isTakingScreenshot = true;
                             numberOfAttempts = 0;
@@ -298,7 +291,6 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
             }
         }
 
-
         /// <summary>
         /// Resets the current sequence of gestures after a failed attempt, 
         /// or when changing the unlock sequence
@@ -306,7 +298,6 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
         public void resetSequence()
         {
             //Reset variables
-            last_Gesture = null;
             bFirstGesture = false;
             bSecondGesture = false;
             bThirdGesture = false;
@@ -320,7 +311,6 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
 
             //Console.WriteLine("Number of attempts after reset: " + numberOfAttempts);
         }
-
 
         /// <summary>
         /// Disposes the VisualGestureBuilderFrameSource and VisualGestureBuilderFrameReader objects
@@ -339,17 +329,5 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
                 this.vgbFrameSource = null;
             }
         }
-
-        public void openDoor()
-        {
-           
-
-        }
-
-
-
-    
-
     }
 }
-//}

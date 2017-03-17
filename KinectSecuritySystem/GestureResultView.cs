@@ -57,7 +57,6 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
         /// <param name="firstGesture">True, if the first gesture is currently detected</param>
         /// <param name="secondGesture">True, if the second gesture is currently detected</param>
         /// <param name="thirdGesture">True, if the third gesture is currently detected</param>
-        /// 
         /// <param name="progress">Progress value of the 'SteerProgress' gesture</param>
         /// <param name="space">SpaceView object in UI which should be updated with latest gesture result data</param>
         public GestureResultView(bool isTracked, bool firstGesture, bool secondGesture, bool thirdGesture, float progress, SpaceView space, bool doorUnlockState,
@@ -231,9 +230,6 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
                 this.NumberOfTries = numberOfTries;
                 this.IsTakingScreenshot = isTakingScreenshot;
             }
-
-            // move the ship in space, using the latest gesture detection results TODO
-                 //this.spaceView.UpdateShipPosition(this.KeepStraight, this.SteerProgress);
         }
     }
 }
