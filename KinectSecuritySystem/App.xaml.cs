@@ -4,7 +4,7 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
+namespace Microsoft.Samples.Kinect.KinectSecuritySystem
 {
     using System;
     using System.Windows;

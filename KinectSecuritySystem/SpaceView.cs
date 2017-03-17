@@ -4,7 +4,7 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
+namespace Microsoft.Samples.Kinect.KinectSecuritySystem
 {
     using System;
     using System.ComponentModel;
@@ -14,7 +14,7 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
     using System.Windows.Controls;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
-    using Microsoft.Samples.Kinect.ContinuousGestureBasics.Common;
+    using Microsoft.Samples.Kinect.KinectSecuritySystem.Common;
 
     /// <summary>
     /// Creates and maintains a collection of images (ship, asteroids, and explosion) that can move within the bounds of the space image

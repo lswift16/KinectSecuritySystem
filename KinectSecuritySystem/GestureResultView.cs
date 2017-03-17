@@ -4,13 +4,13 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
+namespace Microsoft.Samples.Kinect.KinectSecuritySystem
 {
     using System;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
     using System.Windows.Media;
-    using Microsoft.Samples.Kinect.ContinuousGestureBasics.Common;
+    using Microsoft.Samples.Kinect.KinectSecuritySystem.Common;
 
     /// <summary>
     /// Tracks gesture results coming from the GestureDetector and displays them in the UI.
@@ -42,6 +42,8 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
         /// <summary> True, if the user is doing third gesture  </summary>
         private bool thirdGesture = false;
 
+        private bool isTakingScreenshot = false;
+
         /// <summary> True, if the body is currently being tracked </summary>
         private bool isTracked = false;
 
@@ -59,13 +61,14 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
         /// <param name="progress">Progress value of the 'SteerProgress' gesture</param>
         /// <param name="space">SpaceView object in UI which should be updated with latest gesture result data</param>
         public GestureResultView(bool isTracked, bool firstGesture, bool secondGesture, bool thirdGesture, float progress, SpaceView space, bool doorUnlockState,
-                                 int numberOfTries, int numberOfTriesLeft)
+                                 int numberOfTries, int numberOfTriesLeft, bool isTakingScreenshot)
         {
             
             this.IsTracked = isTracked;
             this.FirstGesture = firstGesture;
             this.SecondGesture = secondGesture;
             this.ThirdGesture = thirdGesture;
+            this.IsTakingScreenshot = isTakingScreenshot;
             //this.SteerProgress = progress;
             this.spaceView = space;
             this.DoorUnlockState = doorUnlockState;
@@ -137,6 +140,18 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
             }
         }
 
+        public bool IsTakingScreenshot
+        {
+            get
+            {
+                return this.isTakingScreenshot;
+            }
+            
+            private set
+            {
+                this.SetProperty(ref this.isTakingScreenshot, value);
+            }
+        }
         /// <summary> 
         /// Gets a value indicating whether the user is doing the first gesture in the unlock sequence
         /// </summary>
@@ -194,7 +209,7 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
         /// <param name="straight">True, if detection results indicate that the user is attempting to keep the ship straight</param>
         /// <param name="progress">The current progress value of the 'SteerProgress' continuous gesture</param>
         public void UpdateGestureResult(bool isBodyTrackingIdValid, bool firstGesture, bool secondGesture, bool  thirdGesture, float progress, bool doorState,
-                                        int numberOfTries)
+                                        int numberOfTries, bool isTakingScreenshot)
         {
             this.IsTracked = isBodyTrackingIdValid;
 
@@ -205,6 +220,7 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
                 this.ThirdGesture = false;
                 this.DoorUnlockState = false;
                 this.NumberOfTries = 0;
+                this.IsTakingScreenshot = false;
             }
             else
             {
@@ -213,6 +229,7 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
                 this.ThirdGesture = thirdGesture;
                 this.DoorUnlockState = doorState;
                 this.NumberOfTries = numberOfTries;
+                this.IsTakingScreenshot = isTakingScreenshot;
             }
 
             // move the ship in space, using the latest gesture detection results TODO

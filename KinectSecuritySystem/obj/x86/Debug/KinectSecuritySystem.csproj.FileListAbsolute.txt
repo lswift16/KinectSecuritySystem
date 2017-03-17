@@ -1,7 +1,4 @@
-C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\bin\x86\Debug\ContinuousGestureBasics-WPF.exe.config
 C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\bin\x86\Debug\Database\Steering.gbd
-C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\bin\x86\Debug\ContinuousGestureBasics-WPF.exe
-C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\bin\x86\Debug\ContinuousGestureBasics-WPF.pdb
 C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\bin\x86\Debug\Microsoft.Kinect.dll
 C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\bin\x86\Debug\Microsoft.Kinect.VisualGestureBuilder.dll
 C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\bin\x86\Debug\Microsoft.Kinect.xml
@@ -9,15 +6,8 @@ C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\bin\x86\Deb
 C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Debug\KinectSecuritySystem.csprojResolveAssemblyReference.cache
 C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Debug\MainWindow.g.cs
 C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Debug\App.g.cs
-C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Debug\ContinuousGestureBasics-WPF_Content.g.cs
-C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Debug\ContinuousGestureBasics-WPF_MarkupCompile.cache
-C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Debug\ContinuousGestureBasics-WPF_MarkupCompile.lref
 C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Debug\MainWindow.baml
-C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Debug\ContinuousGestureBasics-WPF.g.resources
-C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Debug\Microsoft.Samples.Kinect.ContinuousGestureBasics.Properties.Resources.resources
 C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Debug\KinectSecuritySystem.csproj.GenerateResource.Cache
-C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Debug\ContinuousGestureBasics-WPF.exe
-C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Debug\ContinuousGestureBasics-WPF.pdb
 C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\bin\x86\Debug\Database\Stop.gbd
 C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\bin\x86\Debug\Database\Security.gbd
 C:\Users\Joshs\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\bin\x86\Debug\ContinuousGestureBasics-WPF.exe.config
@@ -42,3 +32,13 @@ C:\Users\Joshs\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\De
 C:\Users\Joshs\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Debug\ContinuousGestureBasics-WPF.g.resources
 C:\Users\Joshs\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Debug\Microsoft.Samples.Kinect.ContinuousGestureBasics.Properties.Resources.resources
 C:\Users\Joshs\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Debug\KinectSecuritySystem.csproj.GenerateResource.Cache
+C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\bin\x86\Debug\KinectSecuritySystem.exe.config
+C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\bin\x86\Debug\KinectSecuritySystem.exe
+C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\bin\x86\Debug\KinectSecuritySystem.pdb
+C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Debug\KinectSecuritySystem_Content.g.cs
+C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Debug\KinectSecuritySystem_MarkupCompile.cache
+C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Debug\KinectSecuritySystem_MarkupCompile.lref
+C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Debug\KinectSecuritySystem.g.resources
+C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Debug\Microsoft.Samples.Kinect.KinectSecuritySystem.Properties.Resources.resources
+C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Debug\KinectSecuritySystem.exe
+C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Debug\KinectSecuritySystem.pdb

@@ -4,7 +4,7 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.Samples.Kinect.ContinuousGestureBasics.Common
+namespace Microsoft.Samples.Kinect.KinectSecuritySystem.Common
 {
     using System;
     using System.ComponentModel;

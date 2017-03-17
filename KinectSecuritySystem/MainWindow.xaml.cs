@@ -4,13 +4,13 @@
 // </copyright>
 //
 // <Description>
-// This program was based on the microsoft sample "ContinuousGestureBasics"
+// This program was based on the microsoft sample "KinectSecuritySystem"
 // It allows a user to set a sequence of gestures to use as a 'pin' to unlock a door by communicating over
 // Xbees to an arduino which controls a door.
 // </Description>
 //-------------------------------------------------------------------------------------------------------------------------------
 
-namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
+namespace Microsoft.Samples.Kinect.KinectSecuritySystem
 {
     using System;
     using System.ComponentModel;
@@ -27,6 +27,7 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
     using System.Net.Mail;
     using System.Security.Cryptography.X509Certificates;
     using System.Net.Security;
+    using System.Diagnostics;
 
     /// <summary>
     /// Interaction logic for the MainWindow
@@ -64,8 +65,9 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
         private DispatcherTimer dispatcherTimer = null;
 
 
-        //Used for screenshot: 
+        private Stopwatch updateTimer = new Stopwatch();
 
+        private RobotControl robotControl = new RobotControl();
         /// <summary>
         /// Reader for color frames
         /// </summary>
@@ -117,7 +119,7 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
             //this.spaceView = new SpaceView(this.spaceGrid, this.spaceImage);
 
             // initialize the GestureDetector object
-            this.gestureResultView = new GestureResultView(false, false, false, false, -1.0f, null, false, 0, 3);
+            this.gestureResultView = new GestureResultView(false, false, false, false, -1.0f, null, false, 0, 3, false);
             this.gestureDetector = new GestureDetector(this.kinectSensor, this.gestureResultView);
 
             // set data context objects for display in UI
@@ -127,6 +129,8 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
             this.outputGrid.DataContext = this.gestureResultView;
             //this.spaceGrid.DataContext = this.spaceView;
             //this.collisionResultGrid.DataContext = this.spaceView;
+
+            this.updateTimer.Start();
         }
 
         /// <summary>
@@ -165,7 +169,7 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
                     Console.WriteLine(e.Message);
                 }
             }
-
+            this.gestureDetector.isTakingScreenshot = false;
         }
 
         /// <summary>
@@ -389,6 +393,14 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
                 // visualize the new body data
                 this.kinectBodyView.UpdateBodyData(activeBody);
 
+                //
+                //Console.WriteLine(this.updateTimer.ElapsedMilliseconds);
+                if(this.updateTimer.ElapsedMilliseconds > 3000 && this.gestureResultView.DoorUnlockState)
+                {
+                    this.robotControl.updateArmData(activeBody);
+                    this.updateTimer.Restart();
+                }
+                
                 //this.gestureDetector.updateArmData(activeBody);
 
                 // visualize the new gesture data
@@ -403,7 +415,7 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
                     // the active body is not tracked, pause the detector and update the UI
                     this.gestureDetector.IsPaused = true;
                     this.gestureDetector.ClosedHandState = false;
-                    this.gestureResultView.UpdateGestureResult(false, false, false, false, -1.0f, false, 0);
+                    this.gestureResultView.UpdateGestureResult(false, false, false, false, -1.0f, false, 0, false);
                 }
                 else
                 {
@@ -423,6 +435,16 @@ namespace Microsoft.Samples.Kinect.ContinuousGestureBasics
                     
                     // get the latest gesture frame from the sensor and updates the UI with the results
                     this.gestureDetector.UpdateGestureData();
+
+                    //Console.WriteLine(this.gestureResultView.DoorUnlockState);
+                    if(this.gestureResultView.DoorUnlockState)
+                    {
+                        this.tabControl.SelectedIndex = 2;
+                    }
+                    else if (this.gestureDetector.isTakingScreenshot)
+                    {
+                        screenShot();
+                    }
                 }
             }
         }

@@ -1,18 +1,18 @@
-﻿ContinuousGestureBasics-WPF
+﻿KinectSecuritySystem
 
 
 winexe
 C#
 .cs
 C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Debug\
-PT.KinectSecuritySystem
+Microsoft.Samples.Kinect.KinectSecuritySystem
 none
 false
 DEBUG;TRACE
 C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\App.xaml
 11151548125
 3-1570827916
-161908186979
+12-1621062550
 141998064385
 MainWindow.xaml;
 

@@ -9,8 +9,8 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Microsoft.Samples.Kinect.ContinuousGestureBasics</RootNamespace>
-    <AssemblyName>ContinuousGestureBasics-WPF</AssemblyName>
+    <RootNamespace>Microsoft.Samples.Kinect.KinectSecuritySystem</RootNamespace>
+    <AssemblyName>KinectSecuritySystem</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -56,7 +56,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Microsoft.Samples.Kinect.ContinuousGestureBasics.App</StartupObject>
+    <StartupObject>Microsoft.Samples.Kinect.KinectSecuritySystem.App</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Images\Kinect.ico</ApplicationIcon>
@@ -101,6 +101,7 @@
     <Compile Include="Common\BindableBase.cs" />
     <Compile Include="GestureDetector.cs" />
     <Compile Include="MovingSpaceImage.cs" />
+    <Compile Include="RobotControl.cs" />
     <Compile Include="SpaceView.cs" />
     <Compile Include="GestureResultView.cs" />
     <Compile Include="KinectBodyView.cs" />
