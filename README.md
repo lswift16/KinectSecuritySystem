@@ -48,6 +48,8 @@ Servos are activated by the arduino to turn a specific amount of degrees which a
 
 Upon receiving the applicable message the arduino turns the servo motor in order to allow the opening of the door connected to it.
 
+![alt tag](http://i.imgur.com/BBcRBLy.jpg)
+
 ##### Email upon failure
 
 Upon failure an email is sent by the arduino to the owner of the system.
