@@ -98,6 +98,8 @@ Upon receiving the applicable messages the arduino commands the MeArm to move to
 
 #### [Robot Arm Kinect Example 2](https://github.com/rwaldron/johnny-five/blob/master/docs/kinect-arm-controller.md)
 
+#### [Fritzing](http://fritzing.org/home/)
+
 ### Software Used
 
 #### Visual Studio
@@ -112,3 +114,6 @@ Used for taking in messages from the C# program and via a connected breadboard, 
 
 This software allows the conversion of raw video footage (recorded via the Kinect 2) into gestures. This is done by importing video footage of a gesture being performed, and then giving each frame a mark of either TRUE (gesture is being performed), or FALSE (gesture isn't being performed). This is then processed using Kinect Gesture Builder to create a .gbd file that is used in our system.
 
+#### Fritzing
+
+Fritzing is an open-sourced piece of software that allows you to model the setup of various pieces of hardware. In this project we used it to model the layout of the Arduino, Breadboard and MeArm setup.
