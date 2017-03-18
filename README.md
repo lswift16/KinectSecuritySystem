@@ -1,6 +1,16 @@
-# Kinect Security System
+### Welcome to the KinectSecuritySystem wiki!
 
-The Kinect Security System is a biometric system that allows users to unlock their doors with simple physical movements. By selecting from a set of pre-generated gestures the user can set a "lock" consisting of any three. To unlock the door a user simply has to preform these gestures, in their decided order, in view of the Kinect. The system connects to an arduino via xBees which control a servo representing a physical door lock.
+The KinectSecuritySystem is a biometric system that allows users to unlock their doors with simple physical movements. By selecting from a set of pre-generated gestures the user can set a "lock" consisting of any three. To unlock a user simply has to preform these gestures, in their decided order, in front of the Kinect. The system then connects to an arduino via xBees which allows a user to take control of a MeArm robot via moving their right wrist up/down/left/right.
+
+This project was built by:
+
+-Joshua Starkey
+
+-Luke Swift
+
+-Beau Stanton
+
+-Tom Wild
 
 ### Equipment Required
 
@@ -10,51 +20,58 @@ The Kinect Security System is a biometric system that allows users to unlock the
 
 1x Arduino Uno
 
-1x Servo Motor
+1x MeArm Robot
 
 2x xBee Wireless Connectors
 
+1x Breadboard
+
 ### Setup
 
-1. Connect Kinect to computer and arduino to power source/servo motor
-2. Via the xBees and using XCTU, connect the computer to the arduino
-3. Run the code as a .exe
-4. Choose a lock for the system via the lock builder
+1. Connect Kinect to computer and arduino to a power source and the MeArm robot
+
+MeArm servo diagram:
+![](http://i.imgur.com/BBcRBLy.jpg)
+
+2. Connect 1 xBee to the computer and 1 xBee to the Arduino
+3. Run the code
+4. Choose a lock for the system via the lock builder GUI
 5. Unlock the system by performing the gestures *you* set in the order *you* set them.
+6. Move your right hand up/down/left/right to control the connected MeArm using the GUI to toggle rotational or arm motor control.
+### What Can KinectSecuritySystem Do?
 
-### What can KinectSecuritySystem do?
+#### Kinect Gesture Detection and Security
+##### Build A Lock
 
-#### Kinect Gesture Detection
+Users can select a series of gestures from a pre-built .gbd database. Developers will be able to create their own .gbd file by using the Kinect Gesture Builder made by Microsoft (Link found in resources used section of the wiki). By selecting these gestures via a GUI interface they build a "lock" which forces anyone who wishes to open the door connected to the lock to perform said gestures in order.
 
+The system for building a lock firstly assigns saved .gbd files (gestures generated via Visual Gesture Builder) to multiple variables. These gestures are then available for selection via drop-down lists on the GUI. A user upon going to the build lock tab is able to select the gestures they want for the lock via these lists.
 
-##### Build a lock
+##### Unlock Your Door
 
-Users can select a series of gestures from a pre-built database. By selecting these gestures they build a "lock" which forces anyone who wishes to open the door connected to the lock to perform said gestures.
+Users perform the chosen set of gestures and upon succeeding users gain access to the MeArm allowing them to control it. Upon failure an email is sent to the owner.
 
-The system for building a lock firstly assigns saved .gbd files (gestures generated via Visual Gesture Builder) to three varaibles (although more could be added). These gestures are then available for selection via buttons on the GUI. The users upon choosing to build a lock is able to press these buttons in an order to build said lock.
+The system uses the above mentioned variables to compare the current skeleton wire-frames positions to that of the saved .gbd gesture database. Upon a succesful performance of the gestures in the correct order, the program switches UI tab and allows users to control the MeArm robot. Upon a failure, which constitutes performing a gesture at an incorrect point in the sequence 3 times, the C# program emails a "Security Alert" to a specific email address.
 
-##### Unlock your door
+##### Security Alert Upon Failure
 
-Users perform the chosen set of gestures and upon succeeding a message sent from the computer system to the arduino, activating a servo motor. Upon failure an email is sent to the owner.
+Upon failure a "Security Alert" is sent by the C# program to the owner of the system (currently set as programmingthings
+gmail.com.
 
-The system uses the above mentioned variables to compare the current skeleton wire frames positions to that of the saved .gbd file gestures. Upon a succesful performance of the gestures in the correct order, the program sends a message via xBees to the arduino. The arduino will then activate the servo motor to unlock the door. Upon a failure (which constitutes performing the wrong gesture) a message is sent from the program to the arduino to email the owner about the attempt to unlock the door.
+This is done by a simple smtp server built for/connected to gmail. A message is sent warning the recipient that failed attempts have been made to access their system with an additional date/time and screenshot of the Kinect's current view.
 
 #### Arduino Support
+##### MeArm Control (C# Side)
 
+The C# program sends messages with degree (0 - 180) values attached to command the MeArm to move to that specific rotational or vertical point.
 
-##### Servo control
+The program does this by converting the Kinect's -1 to 1 x/y positioning of a specific joint (in our case the right wrist) into a value between 0 - 180. The equation for this is as following: d = (f / 0.011) + 90 where d is the output degrees sent to the MeArm and f is the float generated by the Kinect. 0.011 is 2 (the difference between -1 & 1) divided by 180. The messages sent are only for 1 axis at a time due to limitations found with the MeArm. The axis can be toggled using a button on the UI to change whether x or y commands are sent.
 
-Servos are activated by the arduino to turn a specific amount of degrees which allow the opening of the door.
+##### MeArm Control (Arduino Side)
 
-Upon receiving the applicable message the arduino turns the servo motor in order to allow the opening of the door connected to it.
+Rotational and arm servos are activated by the arduino to turn a specific amount of degrees which allow the MeArm to perform simple movements.
 
-![alt tag](http://i.imgur.com/BBcRBLy.jpg)
-
-##### Email upon failure
-
-Upon failure an email is sent by the arduino to the owner of the system.
-
-The arduino does this by...
+Upon receiving the applicable messages the arduino commands the MeArm to move to the set amount of degrees it has been told to. Currently the system only allows x or y movements at a time but the arduino code is able to handle both without any editing.
 
 ### References
 
