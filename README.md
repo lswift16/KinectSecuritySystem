@@ -1,4 +1,4 @@
-### Welcome to the KinectSecuritySystem wiki!
+# Kinect Security System
 
 The KinectSecuritySystem is a biometric system that allows users to unlock their doors with simple physical movements. By selecting from a set of pre-generated gestures the user can set a "lock" consisting of any three. To unlock a user simply has to preform these gestures, in their decided order, in front of the Kinect. The system then connects to an arduino via xBees which allows a user to take control of a MeArm robot via moving their right wrist up/down/left/right.
 
@@ -11,6 +11,8 @@ This project was built by:
 -Beau Stanton
 
 -Tom Wild
+
+## Setup & Usage
 
 ### Equipment Required
 
@@ -38,6 +40,9 @@ MeArm servo diagram:
 4. Choose a lock for the system via the lock builder GUI
 5. Unlock the system by performing the gestures *you* set in the order *you* set them.
 6. Move your right hand up/down/left/right to control the connected MeArm using the GUI to toggle rotational or arm motor control.
+
+## Project Functionality
+
 ### What Can KinectSecuritySystem Do?
 
 #### Kinect Gesture Detection and Security
@@ -73,16 +78,37 @@ Rotational and arm servos are activated by the arduino to turn a specific amount
 
 Upon receiving the applicable messages the arduino commands the MeArm to move to the set amount of degrees it has been told to. Currently the system only allows x or y movements at a time but the arduino code is able to handle both without any editing.
 
-### References
+## Resources Used
 
-#### [Kinect Gesture Creation] https://channel9.msdn.com/Blogs/k4wdev/Custom-Gestures-End-to-End-with-Kinect-and-Visual-Gesture-Builder
+### References, Tutorials & Examples
 
-Developers, developers, developers
+#### [Kinect Gesture Creation](https://channel9.msdn.com/Blogs/k4wdev/Custom-Gestures-End-to-End-with-Kinect-and-Visual-Gesture-Builder)
+
+#### [Cake Robot Example](https://channel9.msdn.com/coding4fun/blog/Kinect--C--Arduino--Anoop--CakeRobot)
+
+#### [Kinect Libraries](http://codigogenerativo.com/code/kinectpv2-k4w2-processing-library/)
+
+#### [Hand-Tracker](https://github.com/OpenNI/OpenNI/blob/master/Samples/NiHandTracker/NiHandTracker.cpp)
+
+#### [Gesture Detector Help](https://social.msdn.microsoft.com/Forums/en-US/239009cb-58cd-4556-b38b-831fd70ffe99/several-gestures-using-vgb-gesture-detector-on-code?forum=kinectv2sdk)
+
+#### [Gesture Builder](http://kinect.github.io/tutorial/lab12/index.html)
+
+#### [Robot Arm With Kinect Example](https://github.com/erolkaftanoglu/Robot-Arm-with-Kinect)
+
+#### [Robot Arm Kinect Example 2](https://github.com/rwaldron/johnny-five/blob/master/docs/kinect-arm-controller.md)
 
 ### Software Used
 
 #### Visual Studio
 
-#### Kinect Gesture Builder:
+Used for building the C# program that connects to the Kinect and via xBees the Arduino.
+
+#### Arduino Development Environment
+
+Used for taking in messages from the C# program and via a connected breadboard, command a MeArm to turn servos in order to move to specific points.
+
+#### Kinect Gesture Builder
 
 This software allows the conversion of raw video footage (recorded via the Kinect 2) into gestures. This is done by importing video footage of a gesture being performed, and then giving each frame a mark of either TRUE (gesture is being performed), or FALSE (gesture isn't being performed). This is then processed using Kinect Gesture Builder to create a .gbd file that is used in our system.
+
