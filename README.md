@@ -41,6 +41,10 @@ MeArm servo diagram:
 5. Unlock the system by performing the gestures *you* set in the order *you* set them.
 6. Move your right hand up/down/left/right to control the connected MeArm using the GUI to toggle rotational or arm motor control.
 
+### Example Recordings
+
+[Runtime Test: Screen Capture](https://www.youtube.com/watch?v=qxJ93gCaPPE)
+
 ## Project Functionality
 
 ### What Can KinectSecuritySystem Do?
