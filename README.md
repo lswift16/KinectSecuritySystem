@@ -45,6 +45,8 @@ MeArm servo diagram:
 
 [Runtime Test: Screen Capture](https://www.youtube.com/watch?v=qxJ93gCaPPE)
 
+[Runtime Test 2](https://www.youtube.com/watch?v=wPS7XSq4ES0)
+
 ## Project Functionality
 
 ### What Can KinectSecuritySystem Do?
@@ -97,6 +99,10 @@ Upon receiving the applicable messages the arduino commands the MeArm to move to
 #### [Gesture Detector Help](https://social.msdn.microsoft.com/Forums/en-US/239009cb-58cd-4556-b38b-831fd70ffe99/several-gestures-using-vgb-gesture-detector-on-code?forum=kinectv2sdk)
 
 #### [Gesture Builder](http://kinect.github.io/tutorial/lab12/index.html)
+
+#### [Angela Hillier: Continuous Gestures Example](https://github.com/angelaHillier/ContinuousGestureBasics-WPF)
+
+#### [Angelia Hillier: Thread](https://social.msdn.microsoft.com/Forums/en-US/1562bb0b-dae0-4222-9b12-a4743085ccfa/training-using-visual-gesture-builder-to-learn-a-sequence-of-gesture?forum=kinectv2sdk)
 
 #### [Robot Arm With Kinect Example](https://github.com/erolkaftanoglu/Robot-Arm-with-Kinect)
 
