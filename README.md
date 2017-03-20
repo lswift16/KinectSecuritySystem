@@ -47,6 +47,11 @@ MeArm servo diagram:
 
 [Runtime Test 2](https://www.youtube.com/watch?v=wPS7XSq4ES0)
 
+### Email For Security Alerts
+
+Email Address: programmingthings@gmail.com
+Email Password: Kangaroo
+
 ## Project Functionality
 
 ### What Can KinectSecuritySystem Do?
