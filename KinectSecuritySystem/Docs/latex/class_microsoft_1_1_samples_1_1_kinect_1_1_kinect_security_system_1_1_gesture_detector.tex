@@ -1,0 +1,192 @@
+\hypertarget{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector}{}\section{Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Detector Class Reference}
+\label{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector}\index{Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Detector@{Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Detector}}
+
+
+Gesture Detector class which polls for Visual\+Gesture\+Builder\+Frames from the \hyperlink{namespace_microsoft_1_1_samples_1_1_kinect}{Kinect} sensor Updates the associated \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view}{Gesture\+Result\+View} object with the latest gesture results  
+
+
+Inheritance diagram for Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Detector\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_a605c6a5ff0f3857d5af4d0548d0a8d50}{set\+Gestures} (string gesture1, string gesture2, string gesture3)
+\begin{DoxyCompactList}\small\item\em Sets the three gestures used to lock/unlock the system to the parameters \end{DoxyCompactList}\item 
+\hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_ac072ff2ebd85a754b9b1b4e925757d8a}{Gesture\+Detector} (Kinect\+Sensor kinect\+Sensor, \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view}{Gesture\+Result\+View} gesture\+Result\+View)
+\begin{DoxyCompactList}\small\item\em Initializes a new instance of the \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector}{Gesture\+Detector} class along with the gesture frame source and reader \end{DoxyCompactList}\item 
+void \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_a37bfd6d98a0d7ef40a4080115cde2946}{force\+U\+I\+U\+Pdate} ()
+\begin{DoxyCompactList}\small\item\em Forces the UI to update it\textquotesingle{}s required parameters \end{DoxyCompactList}\item 
+void \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_aa135be3ffe1a256ce8c19eaff88ef37c}{Update\+Gesture\+Data} ()
+\begin{DoxyCompactList}\small\item\em Retrieves the latest gesture detection results from the sensor \end{DoxyCompactList}\item 
+void \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_adc6439369c674bc1a9916f851ca15958}{reset\+Sequence} ()
+\begin{DoxyCompactList}\small\item\em Resets the current sequence of gestures after a failed attempt, or when changing the unlock sequence \end{DoxyCompactList}\item 
+void \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_aec416d9411b2760f932af8135274c4d8}{Dispose} ()
+\begin{DoxyCompactList}\small\item\em Disposes the Visual\+Gesture\+Builder\+Frame\+Source and Visual\+Gesture\+Builder\+Frame\+Reader objects \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_ae7a78de4832f284933db25aaaad77ce4}{is\+Taking\+Screenshot} = false
+\begin{DoxyCompactList}\small\item\em Boolean for checking whether a screenshot needs to be taken for the security alert \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view}{Gesture\+Result\+View} \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_a40558db94165f47ad3526f24d2f52f6c}{Gesture\+Result\+View}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets the \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view}{Gesture\+Result\+View} object which stores the detector results for display in the UI \end{DoxyCompactList}\item 
+bool \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_a4a4d7870b3fe47c605bb336ce8b08e6b}{Closed\+Hand\+State}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets or sets a value indicating whether the body associated with the detector has at least one hand closed \end{DoxyCompactList}\item 
+ulong \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_a4ea0f9304d3588e60a6d0e8a2832cb9c}{Tracking\+Id}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets or sets the body tracking ID associated with the current detector The tracking ID can change whenever a body comes in/out of scope \end{DoxyCompactList}\item 
+bool \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_a3cfd7fc3420ca6e027e150b9bc66cd53}{Is\+Paused}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets or sets a value indicating whether or not the detector is currently paused If the body tracking ID associated with the detector is not valid, then the detector should be paused \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Gesture Detector class which polls for Visual\+Gesture\+Builder\+Frames from the \hyperlink{namespace_microsoft_1_1_samples_1_1_kinect}{Kinect} sensor Updates the associated \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view}{Gesture\+Result\+View} object with the latest gesture results 
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_ac072ff2ebd85a754b9b1b4e925757d8a}\label{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_ac072ff2ebd85a754b9b1b4e925757d8a}} 
+\index{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector}!Gesture\+Detector@{Gesture\+Detector}}
+\index{Gesture\+Detector@{Gesture\+Detector}!Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector}}
+\subsubsection{\texorpdfstring{Gesture\+Detector()}{GestureDetector()}}
+{\footnotesize\ttfamily Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Detector.\+Gesture\+Detector (\begin{DoxyParamCaption}\item[{Kinect\+Sensor}]{kinect\+Sensor,  }\item[{\hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view}{Gesture\+Result\+View}}]{gesture\+Result\+View }\end{DoxyParamCaption})}
+
+
+
+Initializes a new instance of the \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector}{Gesture\+Detector} class along with the gesture frame source and reader 
+
+
+\begin{DoxyParams}{Parameters}
+{\em kinect\+Sensor} & Active sensor to initialize the Visual\+Gesture\+Builder\+Frame\+Source object with\\
+\hline
+{\em gesture\+Result\+View} & \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view}{Gesture\+Result\+View} object to store gesture results of a single body to\\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_aec416d9411b2760f932af8135274c4d8}\label{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_aec416d9411b2760f932af8135274c4d8}} 
+\index{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector}!Dispose@{Dispose}}
+\index{Dispose@{Dispose}!Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector}}
+\subsubsection{\texorpdfstring{Dispose()}{Dispose()}}
+{\footnotesize\ttfamily void Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Detector.\+Dispose (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Disposes the Visual\+Gesture\+Builder\+Frame\+Source and Visual\+Gesture\+Builder\+Frame\+Reader objects 
+
+\mbox{\Hypertarget{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_a37bfd6d98a0d7ef40a4080115cde2946}\label{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_a37bfd6d98a0d7ef40a4080115cde2946}} 
+\index{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector}!force\+U\+I\+U\+Pdate@{force\+U\+I\+U\+Pdate}}
+\index{force\+U\+I\+U\+Pdate@{force\+U\+I\+U\+Pdate}!Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector}}
+\subsubsection{\texorpdfstring{force\+U\+I\+U\+Pdate()}{forceUIUPdate()}}
+{\footnotesize\ttfamily void Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Detector.\+force\+U\+I\+U\+Pdate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Forces the UI to update it\textquotesingle{}s required parameters 
+
+\mbox{\Hypertarget{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_adc6439369c674bc1a9916f851ca15958}\label{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_adc6439369c674bc1a9916f851ca15958}} 
+\index{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector}!reset\+Sequence@{reset\+Sequence}}
+\index{reset\+Sequence@{reset\+Sequence}!Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector}}
+\subsubsection{\texorpdfstring{reset\+Sequence()}{resetSequence()}}
+{\footnotesize\ttfamily void Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Detector.\+reset\+Sequence (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Resets the current sequence of gestures after a failed attempt, or when changing the unlock sequence 
+
+\mbox{\Hypertarget{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_a605c6a5ff0f3857d5af4d0548d0a8d50}\label{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_a605c6a5ff0f3857d5af4d0548d0a8d50}} 
+\index{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector}!set\+Gestures@{set\+Gestures}}
+\index{set\+Gestures@{set\+Gestures}!Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector}}
+\subsubsection{\texorpdfstring{set\+Gestures()}{setGestures()}}
+{\footnotesize\ttfamily void Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Detector.\+set\+Gestures (\begin{DoxyParamCaption}\item[{string}]{gesture1,  }\item[{string}]{gesture2,  }\item[{string}]{gesture3 }\end{DoxyParamCaption})}
+
+
+
+Sets the three gestures used to lock/unlock the system to the parameters 
+
+
+\begin{DoxyParams}{Parameters}
+{\em gesture1} & \\
+\hline
+{\em gesture2} & \\
+\hline
+{\em gesture3} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_aa135be3ffe1a256ce8c19eaff88ef37c}\label{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_aa135be3ffe1a256ce8c19eaff88ef37c}} 
+\index{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector}!Update\+Gesture\+Data@{Update\+Gesture\+Data}}
+\index{Update\+Gesture\+Data@{Update\+Gesture\+Data}!Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector}}
+\subsubsection{\texorpdfstring{Update\+Gesture\+Data()}{UpdateGestureData()}}
+{\footnotesize\ttfamily void Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Detector.\+Update\+Gesture\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Retrieves the latest gesture detection results from the sensor 
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_ae7a78de4832f284933db25aaaad77ce4}\label{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_ae7a78de4832f284933db25aaaad77ce4}} 
+\index{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector}!is\+Taking\+Screenshot@{is\+Taking\+Screenshot}}
+\index{is\+Taking\+Screenshot@{is\+Taking\+Screenshot}!Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector}}
+\subsubsection{\texorpdfstring{is\+Taking\+Screenshot}{isTakingScreenshot}}
+{\footnotesize\ttfamily bool Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Detector.\+is\+Taking\+Screenshot = false}
+
+
+
+Boolean for checking whether a screenshot needs to be taken for the security alert 
+
+
+
+\subsection{Property Documentation}
+\mbox{\Hypertarget{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_a4a4d7870b3fe47c605bb336ce8b08e6b}\label{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_a4a4d7870b3fe47c605bb336ce8b08e6b}} 
+\index{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector}!Closed\+Hand\+State@{Closed\+Hand\+State}}
+\index{Closed\+Hand\+State@{Closed\+Hand\+State}!Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector}}
+\subsubsection{\texorpdfstring{Closed\+Hand\+State}{ClosedHandState}}
+{\footnotesize\ttfamily bool Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Detector.\+Closed\+Hand\+State\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Gets or sets a value indicating whether the body associated with the detector has at least one hand closed 
+
+\mbox{\Hypertarget{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_a40558db94165f47ad3526f24d2f52f6c}\label{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_a40558db94165f47ad3526f24d2f52f6c}} 
+\index{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector}!Gesture\+Result\+View@{Gesture\+Result\+View}}
+\index{Gesture\+Result\+View@{Gesture\+Result\+View}!Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector}}
+\subsubsection{\texorpdfstring{Gesture\+Result\+View}{GestureResultView}}
+{\footnotesize\ttfamily \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view}{Gesture\+Result\+View} Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Detector.\+Gesture\+Result\+View\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets the \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view}{Gesture\+Result\+View} object which stores the detector results for display in the UI 
+
+\mbox{\Hypertarget{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_a3cfd7fc3420ca6e027e150b9bc66cd53}\label{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_a3cfd7fc3420ca6e027e150b9bc66cd53}} 
+\index{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector}!Is\+Paused@{Is\+Paused}}
+\index{Is\+Paused@{Is\+Paused}!Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector}}
+\subsubsection{\texorpdfstring{Is\+Paused}{IsPaused}}
+{\footnotesize\ttfamily bool Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Detector.\+Is\+Paused\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Gets or sets a value indicating whether or not the detector is currently paused If the body tracking ID associated with the detector is not valid, then the detector should be paused 
+
+\mbox{\Hypertarget{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_a4ea0f9304d3588e60a6d0e8a2832cb9c}\label{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector_a4ea0f9304d3588e60a6d0e8a2832cb9c}} 
+\index{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector}!Tracking\+Id@{Tracking\+Id}}
+\index{Tracking\+Id@{Tracking\+Id}!Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Detector}}
+\subsubsection{\texorpdfstring{Tracking\+Id}{TrackingId}}
+{\footnotesize\ttfamily ulong Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Detector.\+Tracking\+Id\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Gets or sets the body tracking ID associated with the current detector The tracking ID can change whenever a body comes in/out of scope 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Kinect\+Security\+System/Gesture\+Detector.\+cs\end{DoxyCompactItemize}

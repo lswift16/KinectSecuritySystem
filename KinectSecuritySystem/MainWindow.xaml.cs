@@ -49,6 +49,8 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
         /// <summary> Current kinect status text to display </summary>
         private string statusText = null;
 
+        private string kinectAxis = "X";
+
         /// <summary> KinectBodyView object which handles drawing the active body to a view box in the UI </summary>
         private KinectBodyView kinectBodyView = null;
         
@@ -58,17 +60,14 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
         /// <summary> GestureResultView for displaying gesture results associated with the tracked person in the UI </summary>
         private GestureResultView gestureResultView = null;
 
-        /// <summary> SpaceView for displaying spaceship position and rotation, which are related to gesture detection results </summary>
-        private SpaceView spaceView = null;
-
-        /// <summary> Timer for updating Kinect frames and space images at 60 fps </summary>
+        /// <summary> Timer for updating Kinect frames and images at 60 fps </summary>
         private DispatcherTimer dispatcherTimer = null;
 
         /// <summary>  </summary>
         private Stopwatch updateTimer = new Stopwatch();
 
         /// <summary>  </summary>
-        private RobotControl robotControl = new RobotControl();
+        private RobotControl robotControl = null;
 
         /// <summary>
         /// Reader for color frames
@@ -114,21 +113,20 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
 
             // initialize the BodyViewer object for displaying tracked bodies in the UI
             this.kinectBodyView = new KinectBodyView(this.kinectSensor);
-            
-            // initialize the SpaceView object
-            //this.spaceView = new SpaceView(this.spaceGrid, this.spaceImage);
+
 
             // initialize the GestureDetector object
-            this.gestureResultView = new GestureResultView(false, false, false, false, -1.0f, null, false, 0, 3, false);
+            this.gestureResultView = new GestureResultView(false, false, false, false, -1.0f, false, 0, 3, false, false, false, false, false);
             this.gestureDetector = new GestureDetector(this.kinectSensor, this.gestureResultView);
+            this.robotControl = new RobotControl(this.gestureResultView, this.kinectAxis);
 
             // set data context objects for display in UI
             this.DataContext = this;
             this.kinectBodyViewbox.DataContext = this.kinectBodyView;
             this.gestureResultGrid.DataContext = this.gestureResultView;
             this.outputGrid.DataContext = this.gestureResultView;
-            //this.spaceGrid.DataContext = this.spaceView;
-            //this.collisionResultGrid.DataContext = this.spaceView;
+
+            this.ArmGrid.DataContext = this.gestureResultView;
 
             this.updateTimer.Start();
         }
@@ -350,9 +348,6 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
         /// </summary>
         private void UpdateKinectFrameData()
         {
-            //FORCE A UI UPDATE TODO:
-            //this.gestureDetector.forceUIUPdate();
-
             bool dataReceived = false;
 
             using (var bodyFrame = this.bodyFrameReader.AcquireLatestFrame())
@@ -392,7 +387,7 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
                 // visualize the new body data
                 this.kinectBodyView.UpdateBodyData(activeBody);
 
-                if(this.updateTimer.ElapsedMilliseconds > 1500 && this.gestureResultView.DoorUnlockState)
+                if(this.updateTimer.ElapsedMilliseconds > 1000 && this.gestureResultView.DoorUnlockState)
                 {
                     this.robotControl.updateArmData(activeBody);
                     this.updateTimer.Restart();
@@ -410,14 +405,13 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
                     // the active body is not tracked, pause the detector and update the UI
                     this.gestureDetector.IsPaused = true;
                     this.gestureDetector.ClosedHandState = false;
-                    this.gestureResultView.UpdateGestureResult(false, false, false, false, -1.0f, false, 0, false);
+                    this.gestureResultView.UpdateGestureResult(false, false, false, false, -1.0f, false, 0, false, false, false, false, false);
                 }
                 else
                 {
                     // the active body is tracked, unpause the detector
                     this.gestureDetector.IsPaused = false;
                     
-                    // steering gestures are only valid when the active body's hand state is 'closed'
                     // update the detector with the latest hand state
                     if (activeBody.HandLeftState == HandState.Closed || activeBody.HandRightState == HandState.Closed)
                     {
@@ -498,6 +492,10 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
             data.Add("Stop_Right");
             data.Add("ThumbUp_Left");
             data.Add("ThumbUp_Right");
+            data.Add("ThumbUp_Right");
+            data.Add("HandsMShape");
+            data.Add("HandsTogether");
+            data.Add("HandsYShape");
 
             //Get a ref to the combobox
             var comboBox = sender as ComboBox;
@@ -514,9 +512,36 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_ClickScreenshot(object sender, RoutedEventArgs e)
         {
             screenShot();
+        }
+
+        /// <summary>
+        /// Button to switch sending of X or Y information to the MeArm
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_ClickXY(object sender, RoutedEventArgs e)
+        {
+            if(kinectAxis.Equals("X"))
+            {
+                kinectAxis = "Y";
+                rightArrow.IsEnabled = false;
+                leftArrow.IsEnabled = false;
+                upArrow.IsEnabled = true;
+                downArrow.IsEnabled = true;
+            }
+            else
+            {
+                kinectAxis = "X";
+                rightArrow.IsEnabled = true;
+                leftArrow.IsEnabled = true;
+                upArrow.IsEnabled = false;
+                downArrow.IsEnabled = false;
+            }
+
+            this.robotControl.KinectAxis = kinectAxis;
         }
 
         /// <summary>

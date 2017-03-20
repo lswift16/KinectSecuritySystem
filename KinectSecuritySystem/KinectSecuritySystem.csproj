@@ -100,9 +100,7 @@
     </Compile>
     <Compile Include="Common\BindableBase.cs" />
     <Compile Include="GestureDetector.cs" />
-    <Compile Include="MovingSpaceImage.cs" />
     <Compile Include="RobotControl.cs" />
-    <Compile Include="SpaceView.cs" />
     <Compile Include="GestureResultView.cs" />
     <Compile Include="KinectBodyView.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -124,6 +122,14 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="Images\Up-on.png" />
+    <Resource Include="Images\Down-off.png" />
+    <Resource Include="Images\Down-on.png" />
+    <Resource Include="Images\Left-off.png" />
+    <Resource Include="Images\Left-on.png" />
+    <Resource Include="Images\Right-off.png" />
+    <Resource Include="Images\Right-on.png" />
+    <Resource Include="Images\Up-off.png" />
     <Resource Include="Images\unlocked.png" />
     <Resource Include="Images\locked.png" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -138,6 +144,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Database\Security.gbd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Database\Gestures.gbd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\Settings.settings">

@@ -26,7 +26,7 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
     public sealed class GestureDetector : IDisposable
     {
         /// <summary> Path to the gesture database that was trained with VGB </summary>
-        private readonly string gestureDatabase = @"Database\Stop.gbd";
+        private readonly string gestureDatabase = @"Database\Gestures.gbd";
 
         //Gesture definitions:
         /// <summary> The first gesture to be detected - can be changed by user</summary>
@@ -183,7 +183,7 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
         public void forceUIUPdate()
         {
             //Force an update without the kinect plugged in to test the UI:
-            this.GestureResultView.UpdateGestureResult(true, true, true, true, 0.0f, true, 1, false);
+            this.GestureResultView.UpdateGestureResult(true, true, true, true, 0.0f, true, 1, false, false, false, false, false);
         }
 
         /// <summary>
@@ -280,7 +280,7 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
                         }
 
                         this.GestureResultView.UpdateGestureResult(true, bFirstGesture, bSecondGesture,
-                           bThirdGesture, 0.0f, doorUnlocked, numberOfAttempts, isTakingScreenshot);
+                           bThirdGesture, 0.0f, doorUnlocked, numberOfAttempts, isTakingScreenshot, false, false, false, false);
 
                         //Console.WriteLine("1st Gesture: " + bFirstGesture);
                         //Console.WriteLine("2nd Gesture:" + bSecondGesture);
@@ -307,7 +307,7 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
             numberOfAttempts++;
 
             // update the UI with the latest gesture detection results
-            this.GestureResultView.UpdateGestureResult(false, bFirstGesture, bSecondGesture, bThirdGesture, 0.0f, bDoorUnlockState, numberOfAttempts, isTakingScreenshot);
+            this.GestureResultView.UpdateGestureResult(false, bFirstGesture, bSecondGesture, bThirdGesture, 0.0f, bDoorUnlockState, numberOfAttempts, isTakingScreenshot, false, false, false, false);
 
             //Console.WriteLine("Number of attempts after reset: " + numberOfAttempts);
         }

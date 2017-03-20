@@ -22,5 +22,17 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("COM4")]
+        public string COMPort {
+            get {
+                return ((string)(this["COMPort"]));
+            }
+            set {
+                this["COMPort"] = value;
+            }
+        }
     }
 }

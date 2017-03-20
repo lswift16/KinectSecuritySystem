@@ -42,3 +42,4 @@ C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Deb
 C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Debug\Microsoft.Samples.Kinect.KinectSecuritySystem.Properties.Resources.resources
 C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Debug\KinectSecuritySystem.exe
 C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\obj\x86\Debug\KinectSecuritySystem.pdb
+C:\Users\Luke\Source\Repos\KinectSecuritySystem\KinectSecuritySystem\bin\x86\Debug\Database\Gestures.gbd

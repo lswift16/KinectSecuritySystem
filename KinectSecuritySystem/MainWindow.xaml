@@ -6,7 +6,7 @@
         Height="680" Width="790"
         Loaded="MainWindow_Loaded"
         Closing="MainWindow_Closing">
-    
+
     <Window.Resources>
         <SolidColorBrush x:Key="MediumGreyBrush" Color="#ff6e6e6e" />
         <SolidColorBrush x:Key="KinectPurpleBrush" Color="#ff52318f" />
@@ -23,143 +23,139 @@
         <Image Grid.Row="0" Source="Images\Logo.png" HorizontalAlignment="Left" Stretch="Fill" Height="32" Width="81" Margin="0 10 0 5" />
         <TextBlock Grid.Row="0" HorizontalAlignment="Center" Text="Kinect Security System" VerticalAlignment="Bottom" Margin="0 0 -1 0" Foreground="{StaticResource MediumGreyBrush}" FontFamily="Segoe UI" FontSize="18"/>
         <Image Grid.Row="0" Source="Images\Status.png" Stretch="None" HorizontalAlignment="Right" Margin="0 0 0 5" />
-        
-        <TabControl Name="tabControl" Margin="0,8,0,10" Grid.Row="1">
-            <TabItem Header="Unlock door"> 
-        <Grid x:Name="contentGrid" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="2*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
 
-            <StackPanel Grid.Column="0" Grid.Row="0" Margin="5">
-                <TextBlock Text="Kinect Viewbox" FontSize="20" FontFamily="Segoe UI" Foreground="{StaticResource KinectPurpleBrush}" FontWeight="SemiBold" Grid.Row="0" Margin="5"/>
-                <Viewbox x:Name="kinectBodyViewbox">
-                    <Image Source="{Binding ImageSource}" Stretch="UniformToFill" />
-                </Viewbox>
-            </StackPanel>
-
-            <Grid x:Name="gestureResultGrid" Grid.Column="0" Grid.Row="1" Width="Auto" Margin="5" VerticalAlignment="Top">
-                <Grid.Style>
-                    <Style TargetType="{x:Type Grid}">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsTracked}" Value="True">
-                                <Setter Property="Background" Value="CornflowerBlue"/>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding IsTracked}" Value="False">
-                                <Setter Property="Background" Value="LightGray"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Grid.Style>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <TextBlock Text="Gesture Results" FontSize="20" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="{StaticResource KinectPurpleBrush}" Grid.Row="0" Margin="5"/>
-                <TextBlock Text="{Binding FirstGesture, StringFormat='First Gesture: {0}'}" FontSize="18" FontFamily="Segoe UI" FontWeight="SemiBold" Grid.Row="1" Margin="5"/>
-                <TextBlock Text="{Binding SecondGesture, StringFormat='Second Gesture: {0}'}" FontSize="18" FontFamily="Segoe UI" FontWeight="SemiBold" Grid.Row="2" Margin="5"/>
-                <TextBlock Text="{Binding ThirdGesture, StringFormat='Third Gesture: {0}'}" FontSize="18" FontFamily="Segoe UI" FontWeight="SemiBold" Grid.Row="3" Margin="5"/>
-                <TextBlock Text="{Binding DoorUnlockState, StringFormat='Door State : {0}'}" FontSize="18" FontFamily="Segoe UI" FontWeight="SemiBold" Grid.Row="4" Margin="5"/>
-            </Grid>
-            
-            <TextBlock Grid.ColumnSpan="2" Grid.Row="3" Text="Instructions: Once the skeleton wireframe is shown in the Kinect viewbox, perform the sequence of gestures required to open the door."
-                       TextWrapping="Wrap" Margin="10" Foreground="{StaticResource MediumGreyBrush}" FontFamily="Segoe UI" FontSize="14"/>
-            
-           
-            <Grid x:Name="outputGrid" Grid.Column="1" Grid.RowSpan="3" Margin="5" ClipToBounds="True" Background="AliceBlue">
+        <TabControl Name="tabControl" Margin="0,0,0,18" Grid.Row="1">
+            <TabItem Header="Unlock door">
+                <Grid x:Name="contentGrid" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="100"/>
-                </Grid.RowDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-                <TextBlock Grid.ColumnSpan="3" Grid.Row="0" Grid.Column="0" Text="{Binding NumberOfTries, StringFormat='Current number of attempts: {0}'}"
+                    <StackPanel Grid.Column="0" Grid.Row="0" Margin="5">
+                        <TextBlock Text="Kinect Viewbox" FontSize="20" FontFamily="Segoe UI" Foreground="{StaticResource KinectPurpleBrush}" FontWeight="SemiBold" Grid.Row="0" Margin="5"/>
+                        <Viewbox x:Name="kinectBodyViewbox">
+                            <Image Source="{Binding ImageSource}" Stretch="UniformToFill" />
+                        </Viewbox>
+                    </StackPanel>
+
+                    <Grid x:Name="gestureResultGrid" Grid.Column="0" Grid.Row="1" Width="Auto" Margin="5" VerticalAlignment="Top">
+                        <Grid.Style>
+                            <Style TargetType="{x:Type Grid}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsTracked}" Value="True">
+                                        <Setter Property="Background" Value="CornflowerBlue"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsTracked}" Value="False">
+                                        <Setter Property="Background" Value="LightGray"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Gesture Results" FontSize="20" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="{StaticResource KinectPurpleBrush}" Grid.Row="0" Margin="5"/>
+                        <TextBlock Text="{Binding FirstGesture, StringFormat='First Gesture: {0}'}" FontSize="18" FontFamily="Segoe UI" FontWeight="SemiBold" Grid.Row="1" Margin="5"/>
+                        <TextBlock Text="{Binding SecondGesture, StringFormat='Second Gesture: {0}'}" FontSize="18" FontFamily="Segoe UI" FontWeight="SemiBold" Grid.Row="2" Margin="5"/>
+                        <TextBlock Text="{Binding ThirdGesture, StringFormat='Third Gesture: {0}'}" FontSize="18" FontFamily="Segoe UI" FontWeight="SemiBold" Grid.Row="3" Margin="5"/>
+                        <TextBlock Text="{Binding DoorUnlockState, StringFormat='Door State : {0}'}" FontSize="18" FontFamily="Segoe UI" FontWeight="SemiBold" Grid.Row="4" Margin="5"/>
+                    </Grid>
+
+                    <TextBlock Grid.ColumnSpan="2" Grid.Row="3" Text="Instructions: Once the skeleton wireframe is shown in the Kinect viewbox, perform the sequence of gestures required to open the door."
+                       TextWrapping="Wrap" Margin="10" Foreground="{StaticResource MediumGreyBrush}" FontFamily="Segoe UI" FontSize="14"/>
+
+
+                    <Grid x:Name="outputGrid" Grid.Column="1" Grid.RowSpan="3" Margin="5" ClipToBounds="True" Background="AliceBlue">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="100"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.ColumnSpan="3" Grid.Row="0" Grid.Column="0" Text="{Binding NumberOfTries, StringFormat='Current number of attempts: {0}'}"
                            FontSize="18" FontFamily="Segoe UI" FontWeight="SemiBold" Margin="10, 10, 10, 0"></TextBlock>
 
-                <TextBlock Grid.ColumnSpan="3" Grid.Row="1" Grid.Column="0" Text="{Binding NumberOfTriesLeft, StringFormat='Attempts left untill security alert: {0}'}"
-                        FontSize="18" FontFamily="Segoe UI" FontWeight="SemiBold" Margin="10, 10, 10, 0"></TextBlock>
+                        <TextBlock Text="Gesture 1" HorizontalAlignment="Center" Grid.Row="2" FontSize="20" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="{StaticResource KinectPurpleBrush}" Margin="5"/>
 
-
-                <TextBlock Text="Gesture 1" HorizontalAlignment="Center" Grid.Row="2" FontSize="20" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="{StaticResource KinectPurpleBrush}" Margin="5"/>
-                
-                <Image Grid.Column="0" Grid.Row="2" Margin="0,40,0,-27">
-                    <Image.Style>
-                        <Style TargetType="{x:Type Image}">
-                            <Setter Property="Source" Value="Images/locked.png"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding FirstGesture}" Value="True">
-                                    <Setter Property="Source" Value="Images/unlocked.png"/>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding FirstGesture}" Value="False">
+                        <Image Grid.Column="0" Grid.Row="2" Margin="0,40,0,-27">
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
                                     <Setter Property="Source" Value="Images/locked.png"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Image.Style>
-                </Image>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding FirstGesture}" Value="True">
+                                            <Setter Property="Source" Value="Images/unlocked.png"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding FirstGesture}" Value="False">
+                                            <Setter Property="Source" Value="Images/locked.png"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
 
-                <TextBlock Text="Gesture 2" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1" FontSize="20" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="{StaticResource KinectPurpleBrush}" Margin="5"/>
+                        <TextBlock Text="Gesture 2" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="1" FontSize="20" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="{StaticResource KinectPurpleBrush}" Margin="5"/>
 
-                <Image Grid.Column="1" Grid.Row="2" Margin="0,40,0,-27">
-                    <Image.Style>
-                        <Style TargetType="{x:Type Image}">
-                            <Setter Property="Source" Value="Images/locked.png"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding SecondGesture}" Value="True">
-                                    <Setter Property="Source" Value="Images/unlocked.png"/>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding SecondGesture}" Value="False">
+                        <Image Grid.Column="1" Grid.Row="2" Margin="0,40,0,-27">
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
                                     <Setter Property="Source" Value="Images/locked.png"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Image.Style>
-                </Image>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SecondGesture}" Value="True">
+                                            <Setter Property="Source" Value="Images/unlocked.png"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding SecondGesture}" Value="False">
+                                            <Setter Property="Source" Value="Images/locked.png"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
 
-                <TextBlock Text="Gesture 3" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="2" FontSize="20" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="{StaticResource KinectPurpleBrush}" Margin="5"/>
+                        <TextBlock Text="Gesture 3" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="2" FontSize="20" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="{StaticResource KinectPurpleBrush}" Margin="5"/>
 
-                <Image Grid.Column="2" Grid.Row="2" Margin="0,40,0,-27">
-                    <Image.Style>
-                        <Style TargetType="{x:Type Image}">
-                            <Setter Property="Source" Value="Images/locked.png"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ThirdGesture}" Value="True">
-                                    <Setter Property="Source" Value="Images/unlocked.png"/>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding ThirdGesture}" Value="False">
+                        <Image Grid.Column="2" Grid.Row="2" Margin="0,40,0,-27">
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
                                     <Setter Property="Source" Value="Images/locked.png"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Image.Style>
-                </Image>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ThirdGesture}" Value="True">
+                                            <Setter Property="Source" Value="Images/unlocked.png"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ThirdGesture}" Value="False">
+                                            <Setter Property="Source" Value="Images/locked.png"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
 
-            </Grid>
-            
-        </Grid>
+                    </Grid>
+
+                </Grid>
             </TabItem>
 
             <TabItem Header="Create unlock gesture">
                 <Grid x:Name="GestureGrid" Grid.Column="1" Grid.RowSpan="3" Margin="5" ClipToBounds="True">
                     <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -169,7 +165,7 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Text="Create a new unlock sequence" Grid.ColumnSpan="3" FontSize="20" FontFamily="Segoe UI" Foreground="{StaticResource KinectPurpleBrush}" FontWeight="SemiBold" Grid.Row="0" Margin="5"/>
-                    
+
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="First Gesture" FontSize="18" FontFamily="Segoe UI" FontWeight="SemiBold" Margin="10, 10, 10, 0"></TextBlock>
                     <ComboBox Name="cmbFirst" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 10, 0, 10" Width="120"
                               Loaded="ComboBox_Loaded"/>
@@ -188,13 +184,89 @@
 
                     <Button Content="Test Screenshot" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,10,10,0"
                             FontSize="14" FontFamily="Segoe UI" FontWeight="SemiBold"
-                            Click="Button_Click"></Button>
+                            Click="Button_ClickScreenshot"></Button>
 
                 </Grid>
             </TabItem>
 
             <TabItem Header="Arm Control" IsEnabled="{Binding DoorUnlockState}">
-                
+                <Grid x:Name="ArmGrid" Grid.Column="1" Grid.RowSpan="3" Margin="5" ClipToBounds="True">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Button Content="Change X/Y" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="38,41,27,39"
+                            FontSize="14" FontFamily="Segoe UI" FontWeight="SemiBold"
+                            Click="Button_ClickXY" Height="98" Width="183"></Button>
+
+                    <Image x:Name="upArrow" Grid.Column="1" Grid.Row="0" Margin="10,10,238,3" Grid.ColumnSpan="2">
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="Images/Up-on.png"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding MovementUp}" Value="True">
+                                        <Setter Property="Source" Value="Images/Up-on.png"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding MovementUp}" Value="False">
+                                        <Setter Property="Source" Value="Images/Up-off.png"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                    <Image x:Name="leftArrow" Grid.Column="0" Grid.Row="1" Margin="10,10,238,3" Grid.ColumnSpan="2">
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="Images/Left-on.png"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding MovementLeft}" Value="True">
+                                        <Setter Property="Source" Value="Images/Left-on.png"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding MovementLeft}" Value="False">
+                                        <Setter Property="Source" Value="Images/Left-off.png"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                    <Image x:Name="downArrow" Grid.Column="1" Grid.Row="2" Margin="10,3,238,10" Grid.ColumnSpan="2">
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="Images/Down-on.png"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding MovementDown}" Value="True">
+                                        <Setter Property="Source" Value="Images/Down-on.png"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding MovementDown}" Value="False">
+                                        <Setter Property="Source" Value="Images/Down-off.png"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                    <Image x:Name="rightArrow" Grid.Column="2" Grid.Row="1" Margin="0,10">
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="Images/Right-on.png"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding MovementRight}" Value="True">
+                                        <Setter Property="Source" Value="Images/Right-on.png"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding MovementRight}" Value="False">
+                                        <Setter Property="Source" Value="Images/Right-off.png"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                </Grid>
             </TabItem>
         </TabControl>
         <StatusBar Grid.Row="2" HorizontalAlignment="Stretch" Name="statusBar" VerticalAlignment="Bottom" Background="White" Foreground="{StaticResource KinectBlueBrush}">

@@ -1,0 +1,228 @@
+\hypertarget{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view}{}\section{Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Result\+View Class Reference}
+\label{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view}\index{Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Result\+View@{Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Result\+View}}
+
+
+Tracks gesture results coming from the \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector}{Gesture\+Detector} and displays them in the UI.  
+
+
+Inheritance diagram for Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Result\+View\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a577bb3cc591276f7128384ca55746126}{Gesture\+Result\+View} (bool is\+Tracked, bool first\+Gesture, bool second\+Gesture, bool third\+Gesture, float progress, bool door\+Unlock\+State, int number\+Of\+Tries, int number\+Of\+Tries\+Left, bool is\+Taking\+Screenshot, bool movement\+Up, bool movement\+Down, bool movement\+Right, bool movement\+Left)
+\begin{DoxyCompactList}\small\item\em Initializes a new instance of the \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view}{Gesture\+Result\+View} class and sets initial property values \end{DoxyCompactList}\item 
+void \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a185ed5540a78c5d1b9044148936496b6}{Update\+Gesture\+Result} (bool is\+Body\+Tracking\+Id\+Valid, bool first\+Gesture, bool second\+Gesture, bool third\+Gesture, float progress, bool door\+State, int number\+Of\+Tries, bool is\+Taking\+Screenshot, bool move\+Up, bool move\+Down, bool move\+Right, bool move\+Left)
+\begin{DoxyCompactList}\small\item\em Updates gesture detection result values for display in the UI \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a4cb511dfb3fa23ab53933e4710d8d529}{Is\+Tracked}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets a value indicating whether or not the body associated with the gesture detector is currently being tracked \end{DoxyCompactList}\item 
+bool \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_abaf9084f0c133249f988a591328aaa71}{Door\+Unlock\+State}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets or sets the current state of the \textquotesingle{}Door\textquotesingle{} for use when unlocking \end{DoxyCompactList}\item 
+bool \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a2009481106fc07209eeead77913cde6f}{Movement\+Up}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets or sets the current state of the \textquotesingle{}Movement\+Up\textquotesingle{} when controlling the roboot arm \end{DoxyCompactList}\item 
+bool \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_ac21ef19452f6b54a80fe547719fd7230}{Movement\+Down}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets or sets the current state of the \textquotesingle{}Movement\+Down\textquotesingle{} when controlling the roboot arm \end{DoxyCompactList}\item 
+bool \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a05936fd5b736c795bbef00ab58ea689f}{Movement\+Left}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets or sets the current state of the \textquotesingle{}Movement\+Left\textquotesingle{} when controlling the roboot arm \end{DoxyCompactList}\item 
+bool \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a0a899a487b4b07ac527096028c4a21bc}{Movement\+Right}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets or sets the current state of the \textquotesingle{}Movementp\textquotesingle{} when controlling the roboot arm \end{DoxyCompactList}\item 
+int \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_aa8520f2014016ea6cf6f92656b99c5a1}{Number\+Of\+Tries}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets or sets the number of attempts to unlock the door \end{DoxyCompactList}\item 
+int \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a00469709f2391265f2b3ac62231c2706}{Number\+Of\+Tries\+Left}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets or sets the number of tries left before activating the security alert \end{DoxyCompactList}\item 
+bool \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a0185c5545335ffd07177daa82e8732c0}{Is\+Taking\+Screenshot}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets or sets the current state of the \textquotesingle{}Is\+Taking\+Screenshot\textquotesingle{} for use in the security alert \end{DoxyCompactList}\item 
+bool \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a17c6d227a701ffeebc95d6917321e7e4}{First\+Gesture}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets a value indicating whether the user is doing the first gesture in the unlock sequence \end{DoxyCompactList}\item 
+bool \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_aaad4853761b6ec0a9ce02ed7eea5d41c}{Second\+Gesture}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets a value indicating whether the user is doing the second gesture in the unlock sequence \end{DoxyCompactList}\item 
+bool \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a4e85797de3a76eeaa858a9c07bf69f7f}{Third\+Gesture}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Gets a value indicating whether the user is doing the second gesture in the unlock sequence \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Tracks gesture results coming from the \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_detector}{Gesture\+Detector} and displays them in the UI. 
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a577bb3cc591276f7128384ca55746126}\label{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a577bb3cc591276f7128384ca55746126}} 
+\index{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View}!Gesture\+Result\+View@{Gesture\+Result\+View}}
+\index{Gesture\+Result\+View@{Gesture\+Result\+View}!Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View}}
+\subsubsection{\texorpdfstring{Gesture\+Result\+View()}{GestureResultView()}}
+{\footnotesize\ttfamily Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Result\+View.\+Gesture\+Result\+View (\begin{DoxyParamCaption}\item[{bool}]{is\+Tracked,  }\item[{bool}]{first\+Gesture,  }\item[{bool}]{second\+Gesture,  }\item[{bool}]{third\+Gesture,  }\item[{float}]{progress,  }\item[{bool}]{door\+Unlock\+State,  }\item[{int}]{number\+Of\+Tries,  }\item[{int}]{number\+Of\+Tries\+Left,  }\item[{bool}]{is\+Taking\+Screenshot,  }\item[{bool}]{movement\+Up,  }\item[{bool}]{movement\+Down,  }\item[{bool}]{movement\+Right,  }\item[{bool}]{movement\+Left }\end{DoxyParamCaption})}
+
+
+
+Initializes a new instance of the \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view}{Gesture\+Result\+View} class and sets initial property values 
+
+
+\begin{DoxyParams}{Parameters}
+{\em is\+Tracked} & True, if the body is currently tracked\\
+\hline
+{\em first\+Gesture} & True, if the first gesture is currently detected\\
+\hline
+{\em second\+Gesture} & True, if the second gesture is currently detected\\
+\hline
+{\em third\+Gesture} & True, if the third gesture is currently detected\\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a185ed5540a78c5d1b9044148936496b6}\label{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a185ed5540a78c5d1b9044148936496b6}} 
+\index{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View}!Update\+Gesture\+Result@{Update\+Gesture\+Result}}
+\index{Update\+Gesture\+Result@{Update\+Gesture\+Result}!Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View}}
+\subsubsection{\texorpdfstring{Update\+Gesture\+Result()}{UpdateGestureResult()}}
+{\footnotesize\ttfamily void Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Result\+View.\+Update\+Gesture\+Result (\begin{DoxyParamCaption}\item[{bool}]{is\+Body\+Tracking\+Id\+Valid,  }\item[{bool}]{first\+Gesture,  }\item[{bool}]{second\+Gesture,  }\item[{bool}]{third\+Gesture,  }\item[{float}]{progress,  }\item[{bool}]{door\+State,  }\item[{int}]{number\+Of\+Tries,  }\item[{bool}]{is\+Taking\+Screenshot,  }\item[{bool}]{move\+Up,  }\item[{bool}]{move\+Down,  }\item[{bool}]{move\+Right,  }\item[{bool}]{move\+Left }\end{DoxyParamCaption})}
+
+
+
+Updates gesture detection result values for display in the UI 
+
+
+\begin{DoxyParams}{Parameters}
+{\em is\+Body\+Tracking\+Id\+Valid} & True, if the body associated with the \hyperlink{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view}{Gesture\+Result\+View} object is still being tracked\\
+\hline
+{\em left} & True, if detection results indicate that the user is attempting to turn the ship left\\
+\hline
+{\em right} & True, if detection results indicate that the user is attempting to turn the ship right\\
+\hline
+{\em straight} & True, if detection results indicate that the user is attempting to keep the ship straight\\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Property Documentation}
+\mbox{\Hypertarget{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_abaf9084f0c133249f988a591328aaa71}\label{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_abaf9084f0c133249f988a591328aaa71}} 
+\index{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View}!Door\+Unlock\+State@{Door\+Unlock\+State}}
+\index{Door\+Unlock\+State@{Door\+Unlock\+State}!Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View}}
+\subsubsection{\texorpdfstring{Door\+Unlock\+State}{DoorUnlockState}}
+{\footnotesize\ttfamily bool Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Result\+View.\+Door\+Unlock\+State\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets or sets the current state of the \textquotesingle{}Door\textquotesingle{} for use when unlocking 
+
+\mbox{\Hypertarget{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a17c6d227a701ffeebc95d6917321e7e4}\label{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a17c6d227a701ffeebc95d6917321e7e4}} 
+\index{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View}!First\+Gesture@{First\+Gesture}}
+\index{First\+Gesture@{First\+Gesture}!Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View}}
+\subsubsection{\texorpdfstring{First\+Gesture}{FirstGesture}}
+{\footnotesize\ttfamily bool Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Result\+View.\+First\+Gesture\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets a value indicating whether the user is doing the first gesture in the unlock sequence 
+
+\mbox{\Hypertarget{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a0185c5545335ffd07177daa82e8732c0}\label{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a0185c5545335ffd07177daa82e8732c0}} 
+\index{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View}!Is\+Taking\+Screenshot@{Is\+Taking\+Screenshot}}
+\index{Is\+Taking\+Screenshot@{Is\+Taking\+Screenshot}!Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View}}
+\subsubsection{\texorpdfstring{Is\+Taking\+Screenshot}{IsTakingScreenshot}}
+{\footnotesize\ttfamily bool Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Result\+View.\+Is\+Taking\+Screenshot\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets or sets the current state of the \textquotesingle{}Is\+Taking\+Screenshot\textquotesingle{} for use in the security alert 
+
+\mbox{\Hypertarget{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a4cb511dfb3fa23ab53933e4710d8d529}\label{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a4cb511dfb3fa23ab53933e4710d8d529}} 
+\index{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View}!Is\+Tracked@{Is\+Tracked}}
+\index{Is\+Tracked@{Is\+Tracked}!Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View}}
+\subsubsection{\texorpdfstring{Is\+Tracked}{IsTracked}}
+{\footnotesize\ttfamily bool Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Result\+View.\+Is\+Tracked\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets a value indicating whether or not the body associated with the gesture detector is currently being tracked 
+
+\mbox{\Hypertarget{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_ac21ef19452f6b54a80fe547719fd7230}\label{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_ac21ef19452f6b54a80fe547719fd7230}} 
+\index{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View}!Movement\+Down@{Movement\+Down}}
+\index{Movement\+Down@{Movement\+Down}!Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View}}
+\subsubsection{\texorpdfstring{Movement\+Down}{MovementDown}}
+{\footnotesize\ttfamily bool Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Result\+View.\+Movement\+Down\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets or sets the current state of the \textquotesingle{}Movement\+Down\textquotesingle{} when controlling the roboot arm 
+
+\mbox{\Hypertarget{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a05936fd5b736c795bbef00ab58ea689f}\label{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a05936fd5b736c795bbef00ab58ea689f}} 
+\index{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View}!Movement\+Left@{Movement\+Left}}
+\index{Movement\+Left@{Movement\+Left}!Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View}}
+\subsubsection{\texorpdfstring{Movement\+Left}{MovementLeft}}
+{\footnotesize\ttfamily bool Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Result\+View.\+Movement\+Left\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets or sets the current state of the \textquotesingle{}Movement\+Left\textquotesingle{} when controlling the roboot arm 
+
+\mbox{\Hypertarget{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a0a899a487b4b07ac527096028c4a21bc}\label{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a0a899a487b4b07ac527096028c4a21bc}} 
+\index{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View}!Movement\+Right@{Movement\+Right}}
+\index{Movement\+Right@{Movement\+Right}!Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View}}
+\subsubsection{\texorpdfstring{Movement\+Right}{MovementRight}}
+{\footnotesize\ttfamily bool Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Result\+View.\+Movement\+Right\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets or sets the current state of the \textquotesingle{}Movementp\textquotesingle{} when controlling the roboot arm 
+
+\mbox{\Hypertarget{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a2009481106fc07209eeead77913cde6f}\label{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a2009481106fc07209eeead77913cde6f}} 
+\index{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View}!Movement\+Up@{Movement\+Up}}
+\index{Movement\+Up@{Movement\+Up}!Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View}}
+\subsubsection{\texorpdfstring{Movement\+Up}{MovementUp}}
+{\footnotesize\ttfamily bool Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Result\+View.\+Movement\+Up\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets or sets the current state of the \textquotesingle{}Movement\+Up\textquotesingle{} when controlling the roboot arm 
+
+\mbox{\Hypertarget{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_aa8520f2014016ea6cf6f92656b99c5a1}\label{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_aa8520f2014016ea6cf6f92656b99c5a1}} 
+\index{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View}!Number\+Of\+Tries@{Number\+Of\+Tries}}
+\index{Number\+Of\+Tries@{Number\+Of\+Tries}!Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View}}
+\subsubsection{\texorpdfstring{Number\+Of\+Tries}{NumberOfTries}}
+{\footnotesize\ttfamily int Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Result\+View.\+Number\+Of\+Tries\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets or sets the number of attempts to unlock the door 
+
+\mbox{\Hypertarget{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a00469709f2391265f2b3ac62231c2706}\label{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a00469709f2391265f2b3ac62231c2706}} 
+\index{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View}!Number\+Of\+Tries\+Left@{Number\+Of\+Tries\+Left}}
+\index{Number\+Of\+Tries\+Left@{Number\+Of\+Tries\+Left}!Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View}}
+\subsubsection{\texorpdfstring{Number\+Of\+Tries\+Left}{NumberOfTriesLeft}}
+{\footnotesize\ttfamily int Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Result\+View.\+Number\+Of\+Tries\+Left\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets or sets the number of tries left before activating the security alert 
+
+\mbox{\Hypertarget{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_aaad4853761b6ec0a9ce02ed7eea5d41c}\label{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_aaad4853761b6ec0a9ce02ed7eea5d41c}} 
+\index{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View}!Second\+Gesture@{Second\+Gesture}}
+\index{Second\+Gesture@{Second\+Gesture}!Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View}}
+\subsubsection{\texorpdfstring{Second\+Gesture}{SecondGesture}}
+{\footnotesize\ttfamily bool Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Result\+View.\+Second\+Gesture\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets a value indicating whether the user is doing the second gesture in the unlock sequence 
+
+\mbox{\Hypertarget{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a4e85797de3a76eeaa858a9c07bf69f7f}\label{class_microsoft_1_1_samples_1_1_kinect_1_1_kinect_security_system_1_1_gesture_result_view_a4e85797de3a76eeaa858a9c07bf69f7f}} 
+\index{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View}!Third\+Gesture@{Third\+Gesture}}
+\index{Third\+Gesture@{Third\+Gesture}!Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View@{Microsoft\+::\+Samples\+::\+Kinect\+::\+Kinect\+Security\+System\+::\+Gesture\+Result\+View}}
+\subsubsection{\texorpdfstring{Third\+Gesture}{ThirdGesture}}
+{\footnotesize\ttfamily bool Microsoft.\+Samples.\+Kinect.\+Kinect\+Security\+System.\+Gesture\+Result\+View.\+Third\+Gesture\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Gets a value indicating whether the user is doing the second gesture in the unlock sequence 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Kinect\+Security\+System/Gesture\+Result\+View.\+cs\end{DoxyCompactItemize}

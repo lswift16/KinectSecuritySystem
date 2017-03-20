@@ -14,7 +14,7 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
 
     /// <summary>
     /// Tracks gesture results coming from the GestureDetector and displays them in the UI.
-    /// Updates the SpaceView object with the latest gesture result data from the sensor.
+
     /// </summary>
     public sealed class GestureResultView : BindableBase
     {
@@ -47,8 +47,11 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
         /// <summary> True, if the body is currently being tracked </summary>
         private bool isTracked = false;
 
-        /// <summary> SpaceView object in UI which has a spaceship that needs to be updated when we get new gesture results from the sensor </summary>
-        private SpaceView spaceView = null;
+        // <summary> Each movement will be true when a detecting movement for controlling the robot arm </summary>
+        private bool movementUp = false;
+        private bool movementDown = false;
+        private bool movementLeft = false;
+        private bool movementRight = false;
 
         /// <summary>
         /// Initializes a new instance of the GestureResultView class and sets initial property values
@@ -57,10 +60,8 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
         /// <param name="firstGesture">True, if the first gesture is currently detected</param>
         /// <param name="secondGesture">True, if the second gesture is currently detected</param>
         /// <param name="thirdGesture">True, if the third gesture is currently detected</param>
-        /// <param name="progress">Progress value of the 'SteerProgress' gesture</param>
-        /// <param name="space">SpaceView object in UI which should be updated with latest gesture result data</param>
-        public GestureResultView(bool isTracked, bool firstGesture, bool secondGesture, bool thirdGesture, float progress, SpaceView space, bool doorUnlockState,
-                                 int numberOfTries, int numberOfTriesLeft, bool isTakingScreenshot)
+        public GestureResultView(bool isTracked, bool firstGesture, bool secondGesture, bool thirdGesture, float progress, bool doorUnlockState,
+                                 int numberOfTries, int numberOfTriesLeft, bool isTakingScreenshot, bool movementUp, bool movementDown, bool movementRight, bool movementLeft)
         {
             
             this.IsTracked = isTracked;
@@ -68,12 +69,18 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
             this.SecondGesture = secondGesture;
             this.ThirdGesture = thirdGesture;
             this.IsTakingScreenshot = isTakingScreenshot;
-            //this.SteerProgress = progress;
-            this.spaceView = space;
             this.DoorUnlockState = doorUnlockState;
             this.NumberOfTries = numberOfTries;
             this.NumberOfTriesLeft = numberOfTriesLeft;
+
+            this.movementDown = movementDown;
+            this.movementUp = movementUp;
+            this.movementRight = movementRight;
+            this.movementLeft = movementLeft;
         }
+
+
+
 
         /// <summary> 
         /// Gets a value indicating whether or not the body associated with the gesture detector is currently being tracked 
@@ -108,6 +115,76 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
         }
 
         /// <summary>
+        /// Gets or sets the current state of the 'MovementUp' when controlling the roboot arm
+        /// </summary>
+        public bool MovementUp
+        {
+            get
+            {
+                return this.movementUp;
+            }
+
+            private set
+            {
+                this.SetProperty(ref this.movementUp, value);
+
+            }
+        }
+
+
+        /// <summary>
+        /// Gets or sets the current state of the 'MovementDown' when controlling the roboot arm
+        /// </summary>
+        public bool MovementDown
+        {
+            get
+            {
+                return this.movementDown;
+            }
+
+            private set
+            {
+                this.SetProperty(ref this.movementDown, value);
+
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the current state of the 'MovementLeft' when controlling the roboot arm
+        /// </summary>
+        public bool MovementLeft
+        {
+            get
+            {
+                return this.movementLeft;
+            }
+
+            private set
+            {
+                this.SetProperty(ref this.movementLeft, value);
+
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the current state of the 'Movementp' when controlling the roboot arm
+        /// </summary>
+        public bool MovementRight
+        {
+            get
+            {
+                return this.movementRight;
+            }
+
+            private set
+            {
+                this.SetProperty(ref this.movementRight, value);
+
+            }
+        }
+
+
+        /// <summary>
         /// Gets or sets the number of attempts to unlock the door
         /// </summary>
         public int NumberOfTries
@@ -139,6 +216,9 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
             }
         }
 
+        /// <summary>
+        /// Gets or sets the current state of the 'IsTakingScreenshot' for use in the security alert
+        /// </summary>
         public bool IsTakingScreenshot
         {
             get
@@ -206,9 +286,8 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
         /// <param name="left">True, if detection results indicate that the user is attempting to turn the ship left</param>
         /// <param name="right">True, if detection results indicate that the user is attempting to turn the ship right</param>
         /// <param name="straight">True, if detection results indicate that the user is attempting to keep the ship straight</param>
-        /// <param name="progress">The current progress value of the 'SteerProgress' continuous gesture</param>
         public void UpdateGestureResult(bool isBodyTrackingIdValid, bool firstGesture, bool secondGesture, bool  thirdGesture, float progress, bool doorState,
-                                        int numberOfTries, bool isTakingScreenshot)
+                                        int numberOfTries, bool isTakingScreenshot, bool moveUp, bool moveDown, bool moveRight, bool moveLeft)
         {
             this.IsTracked = isBodyTrackingIdValid;
 
@@ -220,6 +299,10 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
                 this.DoorUnlockState = false;
                 this.NumberOfTries = 0;
                 this.IsTakingScreenshot = false;
+                this.MovementUp = false;
+                this.MovementDown = false;
+                this.MovementRight = false;
+                this.MovementLeft = false;
             }
             else
             {
@@ -229,6 +312,10 @@ namespace Microsoft.Samples.Kinect.KinectSecuritySystem
                 this.DoorUnlockState = doorState;
                 this.NumberOfTries = numberOfTries;
                 this.IsTakingScreenshot = isTakingScreenshot;
+                this.MovementUp = moveUp;
+                this.MovementDown = moveDown;
+                this.MovementRight = moveRight;
+                this.MovementLeft = moveLeft;
             }
         }
     }

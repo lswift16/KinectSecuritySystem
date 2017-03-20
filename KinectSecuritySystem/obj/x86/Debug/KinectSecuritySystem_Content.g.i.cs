@@ -11,5 +11,6 @@
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("database/steering.gbd")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("database/stop.gbd")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("database/security.gbd")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("database/gestures.gbd")]
 
 
