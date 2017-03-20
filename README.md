@@ -50,6 +50,7 @@ MeArm servo diagram:
 ### Email For Security Alerts
 
 Email Address: programmingthings@gmail.com
+
 Email Password: Kangaroo
 
 ## Project Functionality
